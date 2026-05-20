@@ -1,0 +1,12 @@
+engine_v1
+engine_v2
+engine_v3
+engine_v3_1
+check
+
+/*.md
+!/README.md
+
+/.*/
+code_review
+tests/generated
