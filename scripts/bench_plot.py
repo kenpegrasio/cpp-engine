@@ -23,6 +23,7 @@ import numpy as np
 
 
 METRICS = [
+    ("min_latency_ns",    "Min Latency (ns)"),
     ("avg_latency_ns",    "Avg Latency (ns)"),
     ("p50_latency_ns",    "p50 Latency (ns)"),
     ("p95_latency_ns",    "p95 Latency (ns)"),
@@ -31,7 +32,6 @@ METRICS = [
     ("max_latency_ns",    "Max Latency (ns)"),
     ("operations_per_sec","Throughput (ops/sec)"),
     ("elapsed_ms",        "Elapsed Time (ms)"),
-    ("transactions",      "Transactions"),
 ]
 
 N_COLS = 3
@@ -102,7 +102,11 @@ def plot_testcase(
     engine_stats: list[dict[str, float]],
     output_path: str,
 ) -> None:
-    """One figure: subplots = metrics, bars within each subplot = engines."""
+    """One figure: subplots = metrics (excl. transactions), bars = engines.
+
+    Transactions are constant across all engines for a given workload, so they
+    are shown in the figure subtitle rather than wasting a subplot on them.
+    """
     n_engines = len(engine_names)
     n_rows = (len(METRICS) + N_COLS - 1) // N_COLS
 
@@ -151,11 +155,15 @@ def plot_testcase(
     for idx in range(len(METRICS), len(axes_flat)):
         axes_flat[idx].set_visible(False)
 
+    # Transactions are the same for all engines (fixed input), so we display
+    # the count once in the subtitle instead of a dedicated subplot.
+    n_tx = int(engine_stats[0].get("transactions", 0)) if engine_stats else 0
     fig.suptitle(
-        f"Benchmark — {test_name}",
-        fontsize=14,
+        f"Benchmark — {test_name}\n"
+        f"Transactions per run: {n_tx:,}  (constant across all engines)",
+        fontsize=12,
         fontweight="bold",
-        y=1.01,
+        y=1.02,
     )
     plt.tight_layout()
     plt.savefig(output_path, dpi=150, bbox_inches="tight")

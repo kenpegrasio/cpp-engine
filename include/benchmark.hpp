@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <string>
 #include <vector>
 
@@ -14,6 +15,7 @@ struct BenchmarkStats
     double elapsed_ms;
     double operations_per_sec;
     double avg_latency_ns;
+    std::uint64_t min_latency_ns;
     std::uint64_t p50_latency_ns;
     std::uint64_t p95_latency_ns;
     std::uint64_t p99_latency_ns;
@@ -72,6 +74,7 @@ public:
         std::cerr << "elapsed_ms=" << stats.elapsed_ms << '\n';
         std::cerr << "operations_per_sec=" << stats.operations_per_sec << '\n';
         std::cerr << "avg_latency_ns=" << stats.avg_latency_ns << '\n';
+        std::cerr << "min_latency_ns=" << stats.min_latency_ns << '\n';
         std::cerr << "p50_latency_ns=" << stats.p50_latency_ns << '\n';
         std::cerr << "p95_latency_ns=" << stats.p95_latency_ns << '\n';
         std::cerr << "p99_latency_ns=" << stats.p99_latency_ns << '\n';
@@ -100,12 +103,14 @@ private:
         const double elapsed_ms = elapsed_ns / 1e6;
         const double elapsed_sec = elapsed_ns / 1e9;
 
+        std::uint64_t min_latency_ns = std::numeric_limits<std::uint64_t>::max();
         std::uint64_t max_latency_ns = 0;
         double total_latency_ns = 0.0;
 
         for (std::uint64_t latency_ns : latencies_ns_)
         {
             total_latency_ns += static_cast<double>(latency_ns);
+            min_latency_ns = std::min(min_latency_ns, latency_ns);
             max_latency_ns = std::max(max_latency_ns, latency_ns);
         }
 
@@ -117,6 +122,7 @@ private:
         stats.avg_latency_ns = latencies_ns_.empty()
                                    ? 0.0
                                    : total_latency_ns / static_cast<double>(latencies_ns_.size());
+        stats.min_latency_ns = latencies_ns_.empty() ? 0 : min_latency_ns;
         stats.p50_latency_ns = percentileLatency(latencies_ns_, 0.50);
         stats.p95_latency_ns = percentileLatency(latencies_ns_, 0.95);
         stats.p99_latency_ns = percentileLatency(latencies_ns_, 0.99);
