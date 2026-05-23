@@ -37,7 +37,10 @@ void matchOrders()
                 lowest_ask.count));
             lowest_ask_deque.pop_front();
             if (lowest_ask_deque.empty())
-                asks.erase(lowest_ask_entry->first);
+            {
+                asks.erase(lowest_ask_entry);
+                lowest_ask_entry = asks.begin();
+            }
         }
         else if (highest_bid.count < lowest_ask.count)
         {
@@ -48,7 +51,10 @@ void matchOrders()
                 highest_bid.count));
             highest_bid_deque.pop_front();
             if (highest_bid_deque.empty())
-                bids.erase(highest_bid_entry->first);
+            {
+                bids.erase(std::next(highest_bid_entry).base());
+                highest_bid_entry = bids.rbegin();
+            }
         }
         else
         {
@@ -59,13 +65,16 @@ void matchOrders()
             highest_bid_deque.pop_front();
             lowest_ask_deque.pop_front();
             if (highest_bid_deque.empty())
-                bids.erase(highest_bid_entry->first);
+            {
+                bids.erase(std::next(highest_bid_entry).base());
+                highest_bid_entry = bids.rbegin();
+            }
             if (lowest_ask_deque.empty())
-                asks.erase(lowest_ask_entry->first);
+            {
+                asks.erase(lowest_ask_entry);
+                lowest_ask_entry = asks.begin();
+            }
         }
-
-        highest_bid_entry = bids.rbegin();
-        lowest_ask_entry = asks.begin();
     }
 }
 
