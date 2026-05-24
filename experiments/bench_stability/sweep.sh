@@ -58,7 +58,8 @@ done
 # ---------------------------------------------------------------------------
 # Resolve paths (always relative to project root)
 # ---------------------------------------------------------------------------
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$ROOT"
 
 if [[ -n "$OUTPUT_SUBDIR" ]]; then
@@ -117,7 +118,7 @@ for ENGINE in "${ENGINES[@]}"; do
         echo "[$DONE/$TOTAL]  engine_$ENGINE  ×  $STEM"
 
         T0=$(date +%s)
-        taskset -c "$CPU_ID" ./scripts/multirun.sh \
+        taskset -c "$CPU_ID" "$SCRIPT_DIR/multirun.sh" \
             "$BIN" "$TEST_FILE" "$N_RUNS" "$OUT_FILE" "$CPU_ID"
         T1=$(date +%s)
 
@@ -139,17 +140,5 @@ echo "  skipped   : $SKIPPED"
 echo "  output    : $OUT_BASE/"
 echo "  wall time : $(( SWEEP_END - SWEEP_START ))s"
 echo ""
-echo "compare results with:"
-echo "  python3 scripts/compare_runs.py \\"
-
-for TEST_FILE in "${TEST_FILES[@]}"; do
-    STEM="$(basename "$TEST_FILE" .txt)"
-    PATHS=""
-    LBLS=""
-    for ENGINE in "${ENGINES[@]}"; do
-        PATHS="$PATHS $OUT_BASE/${ENGINE}_${STEM}.txt"
-        LBLS="$LBLS $ENGINE"
-    done
-    echo "    # $STEM"
-    echo "    python3 scripts/compare_runs.py$PATHS --labels$LBLS"
-done
+echo "plot results with:"
+echo "  python3 experiments/bench_stability/plot_exp1.py"

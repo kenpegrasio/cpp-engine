@@ -9,7 +9,7 @@
 #   ./tests/run_sanitizer_check.sh ./engine_v1_tsan
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEST_DIR="$SCRIPT_DIR/generated"
+TEST_DIR="$SCRIPT_DIR/../tests/generated"
 
 if [[ $# -lt 1 ]]; then
     echo "Usage: $0 <engine> [engine ...]" >&2

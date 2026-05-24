@@ -10,10 +10,12 @@ Usage:
     python bench_plot.py ./engine_v1 ./engine_v2 --test-dir tests/generated
     python bench_plot.py ./engine_v1 ./engine_v2 --tests tests/generated/heavy_overlap_mixed.txt
     python bench_plot.py ./engine_v1 ./engine_v2 --output-dir results/
+    python bench_plot.py ./engine_v1 ./engine_v2 --cpu 5
 """
 
 import argparse
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -51,11 +53,16 @@ def parse_benchmark_stderr(stderr_text: str) -> dict[str, float]:
     return stats
 
 
-def run_benchmark(engine: str, test_file: Path) -> dict[str, float] | None:
+def run_benchmark(engine: str, test_file: Path, cpu_id: int | None) -> dict[str, float] | None:
+    if cpu_id is not None:
+        cmd = ["taskset", "-c", str(cpu_id), engine, "--benchmark"]
+    else:
+        cmd = [engine, "--benchmark"]
+
     try:
         with open(test_file, "r") as f:
             result = subprocess.run(
-                [engine, "--benchmark"],
+                cmd,
                 stdin=f,
                 capture_output=True,
                 text=True,
@@ -197,9 +204,16 @@ def main() -> int:
     )
     parser.add_argument(
         "--output-dir",
-        default="diagrams",
+        default="results/single_sweep",
         metavar="DIR",
-        help="Directory to write output PNGs into (default: diagrams)",
+        help="Directory to write output PNGs into (default: results/single_sweep)",
+    )
+    parser.add_argument(
+        "--cpu",
+        type=int,
+        default=3,
+        metavar="ID",
+        help="CPU core to pin each engine run to via taskset (default: 3)",
     )
     args = parser.parse_args()
 
@@ -217,6 +231,14 @@ def main() -> int:
         print("[error] no test files found", file=sys.stderr)
         return 1
 
+    # Resolve CPU pinning
+    if shutil.which("taskset") is not None:
+        cpu_id = args.cpu
+        print(f"cpu pin  : CPU {cpu_id} (taskset)")
+    else:
+        cpu_id = None
+        print("[warn] taskset not found — running without CPU pinning", file=sys.stderr)
+
     engine_names = [os.path.basename(e) for e in args.engines]
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -231,7 +253,7 @@ def main() -> int:
 
         for engine, name in zip(args.engines, engine_names):
             print(f"  running {name} ...", end=" ", flush=True)
-            stats = run_benchmark(engine, test_file)
+            stats = run_benchmark(engine, test_file, cpu_id)
             if stats is not None:
                 per_engine_stats.append(stats)
                 valid_engine_names.append(name)
