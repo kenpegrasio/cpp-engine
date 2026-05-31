@@ -1,0 +1,771 @@
+ Percent |	Source code & Disassembly of engine_v3 for cpu_core/cycles/ (46 samples, percent: local period)
+---------------------------------------------------------------------------------------------------------------
+         :
+         :
+         :
+         : 3    Disassembly of section .text:
+         :
+         : 5    00000000000042f0 <matchOrders()>:
+         : 6    else
+         : 7    asks[order.price].push_back(order);
+         : 8    }
+         :
+         : 10   void matchOrders()
+         : 11   {
+   13.05 :   42f0:   endbr64
+    0.00 :   42f4:   push   %r15
+    0.00 :   42f6:   push   %r14
+    0.00 :   42f8:   push   %r13
+    4.35 :   42fa:   push   %r12
+         : 17   auto highest_bid_entry = bids.rbegin();
+         : 18   auto lowest_ask_entry = asks.begin();
+         : 19   while (highest_bid_entry != bids.rend() && lowest_ask_entry != asks.end())
+    0.00 :   42fc:   lea    0x7105(%rip),%r12        # b408 <bids+0x8>
+         : 21   {
+    0.00 :   4303:   push   %rbp
+    0.00 :   4304:   push   %rbx
+   17.39 :   4305:   sub    $0x38,%rsp
+         : 25   while (highest_bid_entry != bids.rend() && lowest_ask_entry != asks.end())
+    0.00 :   4309:   cmp    %r12,0x7108(%rip)        # b418 <bids+0x18>
+         : 27   key_comp() const
+         : 28   { return _M_impl._M_key_compare; }
+         :
+         : 30   iterator
+         : 31   begin() _GLIBCXX_NOEXCEPT
+         : 32   { return iterator(this->_M_impl._M_header._M_left); }
+    2.17 :   4310:   mov    0x70c1(%rip),%r15        # b3d8 <asks+0x18>
+    6.52 :   4317:   je     4496 <matchOrders()+0x1a6>
+    0.00 :   431d:   lea    0x70a4(%rip),%r13        # b3c8 <asks+0x8>
+         : 36   void
+         : 37   #endif
+         : 38   vector<_Tp, _Alloc>::
+         : 39   emplace_back(_Args&&... __args)
+         : 40   {
+         : 41   if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
+    0.00 :   4324:   lea    0x7075(%rip),%r14        # b3a0 <transactions>
+    0.00 :   432b:   cmp    %r13,%r15
+    0.00 :   432e:   jne    4397 <matchOrders()+0xa7>
+    0.00 :   4330:   jmp    4496 <matchOrders()+0x1a6>
+    0.00 :   4335:   nopl   (%rax)
+         : 47   lowest_ask_entry = asks.begin();
+         : 48   }
+         : 49   }
+         : 50   else if (highest_bid.count < lowest_ask.count)
+         : 51   {
+         : 52   lowest_ask.count -= highest_bid.count;
+    0.00 :   4338:   sub    %ecx,%esi
+    0.00 :   433a:   mov    %esi,0x8(%rdx)
+         : 55   transactions.push_back(Transaction(
+    0.00 :   433d:   mov    0x8(%rax),%r8d
+    0.00 :   4341:   cmp    %rdi,%rbx
+    0.00 :   4344:   je     44f8 <matchOrders()+0x208>
+         : 59   void
+         : 60   pop_front() _GLIBCXX_NOEXCEPT
+         : 61   {
+         : 62   __glibcxx_requires_nonempty();
+         : 63   if (this->_M_impl._M_start._M_cur
+         : 64   != this->_M_impl._M_start._M_last - 1)
+    0.00 :   434a:   mov    0x48(%rbp),%rcx
+         : 66   template<typename _Tp, typename... _Args>
+         : 67   constexpr auto
+         : 68   construct_at(_Tp* __location, _Args&&... __args)
+         : 69   noexcept(noexcept(::new((void*)0) _Tp(std::declval<_Args>()...)))
+         : 70   -> decltype(::new((void*)0) _Tp(std::declval<_Args>()...))
+         : 71   { return ::new((void*)__location) _Tp(std::forward<_Args>(__args)...); }
+    0.00 :   434e:   mov    %r8d,0x8(%rbx)
+         : 73   {
+         : 74   _GLIBCXX_ASAN_ANNOTATE_GROW(1);
+         : 75   _Alloc_traits::construct(this->_M_impl, this->_M_impl._M_finish,
+         : 76   std::forward<_Args>(__args)...);
+         : 77   ++this->_M_impl._M_finish;
+    0.00 :   4352:   add    $0xc,%rbx
+    0.00 :   4356:   movq   %xmm0,-0xc(%rbx)
+    0.00 :   435b:   lea    -0x18(%rcx),%rdx
+    0.00 :   435f:   mov    %rbx,0x7042(%rip)        # b3a8 <transactions+0x8>
+         : 82   if (this->_M_impl._M_start._M_cur
+    0.00 :   4366:   cmp    %rdx,%rax
+    0.00 :   4369:   je     45e0 <matchOrders()+0x2f0>
+         : 85   {
+         : 86   _Alloc_traits::destroy(_M_get_Tp_allocator(),
+         : 87   this->_M_impl._M_start._M_cur);
+         : 88   ++this->_M_impl._M_start._M_cur;
+    0.00 :   436f:   add    $0x18,%rax
+    0.00 :   4373:   mov    %rax,0x38(%rbp)
+         : 91   highest_bid.order_id,
+         : 92   lowest_ask.order_id,
+         : 93   highest_bid.count));
+         : 94   highest_bid_deque.pop_front();
+         : 95   if (highest_bid_deque.empty())
+    0.00 :   4377:   cmp    %rax,0x58(%rbp)
+    0.00 :   437b:   je     4628 <matchOrders()+0x338>
+         : 98   while (highest_bid_entry != bids.rend() && lowest_ask_entry != asks.end())
+    0.00 :   4381:   cmp    %r12,0x7090(%rip)        # b418 <bids+0x18>
+    0.00 :   4388:   je     4496 <matchOrders()+0x1a6>
+    0.00 :   438e:   cmp    %r13,%r15
+    0.00 :   4391:   je     4496 <matchOrders()+0x1a6>
+         : 103  _M_node = _Rb_tree_decrement(_M_node);
+   15.21 :   4397:   mov    %r12,%rdi
+    0.00 :   439a:   call   2530 <std::_Rb_tree_decrement(std::_Rb_tree_node_base*)@plt>
+         : 106  : _M_cur(__x._M_cur), _M_first(__x._M_first),
+    8.69 :   439f:   mov    0x38(%r15),%rdx
+    0.00 :   43a3:   mov    %rax,%rbp
+    0.00 :   43a6:   mov    0x38(%rax),%rax
+         : 110  if (highest_bid.price < lowest_ask.price)
+    0.00 :   43aa:   mov    0x10(%rdx),%rdi
+   10.87 :   43ae:   cmp    %rdi,0x10(%rax)
+    0.00 :   43b2:   jb     4496 <matchOrders()+0x1a6>
+         : 114  if (highest_bid.count > lowest_ask.count)
+    0.00 :   43b8:   movd   (%rax),%xmm0
+    0.00 :   43bc:   movd   (%rdx),%xmm1
+    0.00 :   43c0:   mov    0x8(%rax),%ecx
+    0.00 :   43c3:   mov    0x8(%rdx),%esi
+         : 119  if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
+    0.00 :   43c6:   mov    0x6fdb(%rip),%rbx        # b3a8 <transactions+0x8>
+    0.00 :   43cd:   mov    0x6fdc(%rip),%rdi        # b3b0 <transactions+0x10>
+    0.00 :   43d4:   punpckldq %xmm1,%xmm0
+    0.00 :   43d8:   cmp    %ecx,%esi
+    0.00 :   43da:   jb     44a8 <matchOrders()+0x1b8>
+         : 125  else if (highest_bid.count < lowest_ask.count)
+    0.00 :   43e0:   cmp    %esi,%ecx
+    0.00 :   43e2:   jb     4338 <matchOrders()+0x48>
+    0.00 :   43e8:   cmp    %rdi,%rbx
+    0.00 :   43eb:   je     4668 <matchOrders()+0x378>
+    0.00 :   43f1:   mov    %ecx,0x8(%rbx)
+         : 131  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   43f4:   mov    0x48(%rbp),%rcx
+         : 133  ++this->_M_impl._M_finish;
+    0.00 :   43f8:   add    $0xc,%rbx
+    0.00 :   43fc:   movq   %xmm0,-0xc(%rbx)
+    0.00 :   4401:   lea    -0x18(%rcx),%rdx
+    0.00 :   4405:   mov    %rbx,0x6f9c(%rip)        # b3a8 <transactions+0x8>
+         : 138  if (this->_M_impl._M_start._M_cur
+    0.00 :   440c:   cmp    %rdx,%rax
+    0.00 :   440f:   je     4750 <matchOrders()+0x460>
+         : 141  ++this->_M_impl._M_start._M_cur;
+    0.00 :   4415:   add    $0x18,%rax
+         : 143  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   4419:   mov    0x48(%r15),%rcx
+         : 145  ++this->_M_impl._M_start._M_cur;
+    0.00 :   441d:   mov    %rax,0x38(%rbp)
+         : 147  if (this->_M_impl._M_start._M_cur
+    0.00 :   4421:   mov    0x38(%r15),%rax
+         : 149  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   4425:   lea    -0x18(%rcx),%rdx
+         : 151  if (this->_M_impl._M_start._M_cur
+    0.00 :   4429:   cmp    %rdx,%rax
+    0.00 :   442c:   je     47d0 <matchOrders()+0x4e0>
+         : 154  ++this->_M_impl._M_start._M_cur;
+    0.00 :   4432:   add    $0x18,%rax
+    0.00 :   4436:   mov    %rax,0x38(%r15)
+         : 157  highest_bid.order_id,
+         : 158  lowest_ask.order_id,
+         : 159  highest_bid.count));
+         : 160  highest_bid_deque.pop_front();
+         : 161  lowest_ask_deque.pop_front();
+         : 162  if (highest_bid_deque.empty())
+    0.00 :   443a:   mov    0x38(%rbp),%rax
+    0.00 :   443e:   cmp    %rax,0x58(%rbp)
+    0.00 :   4442:   je     4790 <matchOrders()+0x4a0>
+         : 166  {
+         : 167  bids.erase(std::next(highest_bid_entry).base());
+         : 168  highest_bid_entry = bids.rbegin();
+         : 169  }
+         : 170  if (lowest_ask_deque.empty())
+    0.00 :   4448:   mov    0x38(%r15),%rax
+    0.00 :   444c:   cmp    %rax,0x58(%r15)
+    0.00 :   4450:   jne    4381 <matchOrders()+0x91>
+         : 174  _Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::
+         : 175  _M_erase_aux(const_iterator __position)
+         : 176  {
+         : 177  _Link_type __y =
+         : 178  static_cast<_Link_type>(_Rb_tree_rebalance_for_erase
+         : 179  (const_cast<_Base_ptr>(__position._M_node),
+    0.00 :   4456:   mov    %r13,%rsi
+    0.00 :   4459:   mov    %r15,%rdi
+    0.00 :   445c:   call   2440 <std::_Rb_tree_rebalance_for_erase(std::_Rb_tree_node_base*, std::_Rb_tree_node_base&)@plt>
+    0.00 :   4461:   mov    %rax,%rbx
+         : 184  { _M_destroy_data(begin(), end(), _M_get_Tp_allocator()); }
+    0.00 :   4464:   lea    0x28(%rax),%rdi
+    0.00 :   4468:   call   7f90 <std::_Deque_base<Order, std::allocator<Order> >::~_Deque_base()>
+         : 187  _GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n),
+         : 188  std::align_val_t(alignof(_Tp)));
+         : 189  return;
+         : 190  }
+         : 191  #endif
+         : 192  _GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n));
+    0.00 :   446d:   mov    $0x78,%esi
+    0.00 :   4472:   mov    %rbx,%rdi
+    0.00 :   4475:   call   2520 <operator delete(void*, unsigned long)@plt>
+         : 196  this->_M_impl._M_header));
+         : 197  _M_drop_node(__y);
+         : 198  --_M_impl._M_node_count;
+    0.00 :   447a:   subq   $0x1,0x6f66(%rip)        # b3e8 <asks+0x28>
+         : 200  while (highest_bid_entry != bids.rend() && lowest_ask_entry != asks.end())
+    0.00 :   4482:   cmp    %r12,0x6f8f(%rip)        # b418 <bids+0x18>
+         : 202  { return iterator(this->_M_impl._M_header._M_left); }
+    0.00 :   4489:   mov    0x6f48(%rip),%r15        # b3d8 <asks+0x18>
+    0.00 :   4490:   jne    438e <matchOrders()+0x9e>
+         : 205  asks.erase(lowest_ask_entry);
+         : 206  lowest_ask_entry = asks.begin();
+         : 207  }
+         : 208  }
+         : 209  }
+         : 210  }
+   19.57 :   4496:   add    $0x38,%rsp
+    0.00 :   449a:   pop    %rbx
+    0.00 :   449b:   pop    %rbp
+    0.00 :   449c:   pop    %r12
+    0.00 :   449e:   pop    %r13
+    0.00 :   44a0:   pop    %r14
+    0.00 :   44a2:   pop    %r15
+    2.17 :   44a4:   ret
+    0.00 :   44a5:   nopl   (%rax)
+         : 220  highest_bid.count -= lowest_ask.count;
+    0.00 :   44a8:   sub    %esi,%ecx
+    0.00 :   44aa:   mov    %ecx,0x8(%rax)
+         : 223  transactions.push_back(Transaction(
+    0.00 :   44ad:   mov    0x8(%rdx),%ecx
+         : 225  if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
+    0.00 :   44b0:   cmp    %rdi,%rbx
+    0.00 :   44b3:   je     4810 <matchOrders()+0x520>
+         : 228  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   44b9:   mov    0x48(%r15),%rax
+    0.00 :   44bd:   mov    %ecx,0x8(%rbx)
+         : 231  ++this->_M_impl._M_finish;
+    0.00 :   44c0:   add    $0xc,%rbx
+    0.00 :   44c4:   movq   %xmm0,-0xc(%rbx)
+    0.00 :   44c9:   sub    $0x18,%rax
+    0.00 :   44cd:   mov    %rbx,0x6ed4(%rip)        # b3a8 <transactions+0x8>
+         : 236  if (this->_M_impl._M_start._M_cur
+    0.00 :   44d4:   cmp    %rax,%rdx
+    0.00 :   44d7:   je     4900 <matchOrders()+0x610>
+         : 239  ++this->_M_impl._M_start._M_cur;
+    0.00 :   44dd:   add    $0x18,%rdx
+    0.00 :   44e1:   mov    %rdx,0x38(%r15)
+         : 242  if (lowest_ask_deque.empty())
+    0.00 :   44e5:   cmp    %rdx,0x58(%r15)
+    0.00 :   44e9:   jne    4381 <matchOrders()+0x91>
+    0.00 :   44ef:   jmp    4456 <matchOrders()+0x166>
+    0.00 :   44f4:   nopl   0x0(%rax)
+         : 247  // [23.2.4.2] capacity
+         : 248  /**  Returns the number of elements in the %vector.  */
+         : 249  _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         : 250  size_type
+         : 251  size() const _GLIBCXX_NOEXCEPT
+         : 252  { return size_type(this->_M_impl._M_finish - this->_M_impl._M_start); }
+    0.00 :   44f8:   movabs $0xaaaaaaaaaaaaaaab,%rcx
+    0.00 :   4502:   mov    (%r14),%rdx
+    0.00 :   4505:   mov    %rbx,%r9
+    0.00 :   4508:   sub    %rdx,%r9
+    0.00 :   450b:   mov    %r9,%rax
+    0.00 :   450e:   sar    $0x2,%rax
+    0.00 :   4512:   imul   %rcx,%rax
+         : 260  // Called by _M_fill_insert, _M_insert_aux etc.
+         : 261  _GLIBCXX20_CONSTEXPR
+         : 262  size_type
+         : 263  _M_check_len(size_type __n, const char* __s) const
+         : 264  {
+         : 265  if (max_size() - size() < __n)
+    0.00 :   4516:   movabs $0xaaaaaaaaaaaaaaa,%rcx
+    0.00 :   4520:   cmp    %rcx,%rax
+    0.00 :   4523:   je     4b5e <matchOrders()+0x86e>
+         : 269  max(const _Tp& __a, const _Tp& __b)
+         : 270  {
+         : 271  // concept requirements
+         : 272  __glibcxx_function_requires(_LessThanComparableConcept<_Tp>)
+         : 273  //return  __a < __b ? __b : __a;
+         : 274  if (__a < __b)
+    0.00 :   4529:   cmp    %rbx,%rdx
+    0.00 :   452c:   je     4aa0 <matchOrders()+0x7b0>
+         : 277  __throw_length_error(__N(__s));
+         :
+         : 279  const size_type __len = size() + (std::max)(size(), __n);
+    0.00 :   4532:   lea    (%rax,%rax,1),%rcx
+         : 281  return (__len < size() || __len > max_size()) ? max_size() : __len;
+    0.00 :   4536:   cmp    %rax,%rcx
+    0.00 :   4539:   jb     49b8 <matchOrders()+0x6c8>
+         : 284  return __n != 0 ? _Tr::allocate(_M_impl, __n) : pointer();
+    0.00 :   453f:   test   %rcx,%rcx
+    0.00 :   4542:   jne    4b08 <matchOrders()+0x818>
+    0.00 :   4548:   mov    %r8d,0x8(%r9)
+    0.00 :   454c:   xor    %ecx,%ecx
+    0.00 :   454e:   xor    %r8d,%r8d
+         : 290  _ValueType;
+         : 291  typedef typename iterator_traits<_ForwardIterator>::value_type
+         : 292  _ValueType2;
+         : 293  static_assert(std::is_same<_ValueType, _ValueType2>::value,
+         : 294  "relocation is only possible for values of the same type");
+         : 295  _ForwardIterator __cur = __result;
+    0.00 :   4551:   xor    %esi,%esi
+    0.00 :   4553:   movq   %xmm0,(%r9)
+         : 298  for (; __first != __last; ++__first, (void)++__cur)
+    0.00 :   4558:   mov    %rdx,%rax
+    0.00 :   455b:   nopl   0x0(%rax,%rax,1)
+    0.00 :   4560:   mov    (%rax),%r9
+    0.00 :   4563:   add    $0xc,%rax
+    0.00 :   4567:   add    $0xc,%rsi
+    0.00 :   456b:   mov    %r9,-0xc(%rsi)
+    0.00 :   456f:   mov    -0x4(%rax),%r9d
+    0.00 :   4573:   mov    %r9d,-0x4(%rsi)
+    0.00 :   4577:   cmp    %rbx,%rax
+    0.00 :   457a:   jne    4560 <matchOrders()+0x270>
+         : 309  if _GLIBCXX17_CONSTEXPR (_S_use_relocate())
+         : 310  {
+         : 311  __new_finish = _S_relocate(__old_start, __position.base(),
+         : 312  __new_start, _M_get_Tp_allocator());
+         :
+         : 314  ++__new_finish;
+    0.00 :   457c:   sub    $0xc,%rax
+    0.00 :   4580:   sub    %rdx,%rax
+    0.00 :   4583:   and    $0xfffffffffffffffc,%rax
+    0.00 :   4587:   lea    0x18(%r8,%rax,1),%rbx
+         : 319  if (__p)
+    0.00 :   458c:   test   %rdx,%rdx
+    0.00 :   458f:   je     45b8 <matchOrders()+0x2c8>
+         : 322  if _GLIBCXX17_CONSTEXPR (!_S_use_relocate())
+         : 323  #endif
+         : 324  std::_Destroy(__old_start, __old_finish, _M_get_Tp_allocator());
+         : 325  _GLIBCXX_ASAN_ANNOTATE_REINIT;
+         : 326  _M_deallocate(__old_start,
+         : 327  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   4591:   sub    %rdx,%rdi
+    0.00 :   4594:   mov    %rcx,0x10(%rsp)
+    0.00 :   4599:   mov    %rdi,%rsi
+    0.00 :   459c:   mov    %rdx,%rdi
+    0.00 :   459f:   mov    %r8,0x8(%rsp)
+    0.00 :   45a4:   call   2520 <operator delete(void*, unsigned long)@plt>
+    0.00 :   45a9:   mov    0x10(%rsp),%rcx
+    0.00 :   45ae:   mov    0x8(%rsp),%r8
+    0.00 :   45b3:   nopl   0x0(%rax,%rax,1)
+         : 337  this->_M_impl._M_start = __new_start;
+         : 338  this->_M_impl._M_finish = __new_finish;
+         : 339  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   45b8:   mov    %rcx,0x6df1(%rip)        # b3b0 <transactions+0x10>
+         : 341  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   45bf:   mov    0x48(%rbp),%rcx
+         : 343  if (this->_M_impl._M_start._M_cur
+    0.00 :   45c3:   mov    0x38(%rbp),%rax
+         : 345  this->_M_impl._M_start = __new_start;
+    0.00 :   45c7:   mov    %r8,(%r14)
+         : 347  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   45ca:   lea    -0x18(%rcx),%rdx
+         : 349  this->_M_impl._M_finish = __new_finish;
+    0.00 :   45ce:   mov    %rbx,0x6dd3(%rip)        # b3a8 <transactions+0x8>
+         : 351  if (this->_M_impl._M_start._M_cur
+    0.00 :   45d5:   cmp    %rdx,%rax
+    0.00 :   45d8:   jne    436f <matchOrders()+0x7f>
+    0.00 :   45de:   xchg   %ax,%ax
+    0.00 :   45e0:   mov    0x40(%rbp),%rdi
+    0.00 :   45e4:   mov    $0x1f8,%esi
+    0.00 :   45e9:   call   2520 <operator delete(void*, unsigned long)@plt>
+         : 358  _M_pop_front_aux()
+         : 359  {
+         : 360  _Alloc_traits::destroy(_M_get_Tp_allocator(),
+         : 361  this->_M_impl._M_start._M_cur);
+         : 362  _M_deallocate_node(this->_M_impl._M_start._M_first);
+         : 363  this->_M_impl._M_start._M_set_node(this->_M_impl._M_start._M_node + 1);
+    0.00 :   45ee:   mov    0x50(%rbp),%rax
+    0.00 :   45f2:   lea    0x8(%rax),%rdx
+         : 366  _M_first = *__new_node;
+    0.00 :   45f6:   mov    0x8(%rax),%rax
+    0.00 :   45fa:   mov    %rdx,0x50(%rbp)
+         : 369  _M_last = _M_first + difference_type(_S_buffer_size());
+    0.00 :   45fe:   lea    0x1f8(%rax),%rdx
+         : 371  _M_first = *__new_node;
+    0.00 :   4605:   movq   %rax,%xmm0
+         : 373  ++this->_M_impl._M_start._M_cur;
+    0.00 :   460a:   mov    %rax,0x38(%rbp)
+         : 375  _M_first = *__new_node;
+    0.00 :   460e:   movq   %rdx,%xmm2
+    0.00 :   4613:   punpcklqdq %xmm2,%xmm0
+    0.00 :   4617:   movups %xmm0,0x40(%rbp)
+         : 379  if (highest_bid_deque.empty())
+    0.00 :   461b:   cmp    %rax,0x58(%rbp)
+    0.00 :   461f:   jne    4381 <matchOrders()+0x91>
+    0.00 :   4625:   nopl   (%rax)
+         : 383  _M_node = _Rb_tree_decrement(_M_node);
+    0.00 :   4628:   mov    %r12,%rdi
+    0.00 :   462b:   call   2530 <std::_Rb_tree_decrement(std::_Rb_tree_node_base*)@plt>
+         : 386  (const_cast<_Base_ptr>(__position._M_node),
+    0.00 :   4630:   mov    %r12,%rsi
+         : 388  _M_node = _Rb_tree_decrement(_M_node);
+    0.00 :   4633:   mov    %rax,%rdi
+         : 390  (const_cast<_Base_ptr>(__position._M_node),
+    0.00 :   4636:   call   2440 <std::_Rb_tree_rebalance_for_erase(std::_Rb_tree_node_base*, std::_Rb_tree_node_base&)@plt>
+    0.00 :   463b:   mov    %rax,%rbx
+         : 393  { _M_destroy_data(begin(), end(), _M_get_Tp_allocator()); }
+    0.00 :   463e:   lea    0x28(%rax),%rdi
+    0.00 :   4642:   call   7f90 <std::_Deque_base<Order, std::allocator<Order> >::~_Deque_base()>
+    0.00 :   4647:   mov    $0x78,%esi
+    0.00 :   464c:   mov    %rbx,%rdi
+    0.00 :   464f:   call   2520 <operator delete(void*, unsigned long)@plt>
+         : 399  --_M_impl._M_node_count;
+    0.00 :   4654:   subq   $0x1,0x6dcc(%rip)        # b428 <bids+0x28>
+         :
+         : 402  /**
+         : 403  *  This %iterator will move in the opposite direction that @p x does.
+         : 404  */
+         : 405  explicit _GLIBCXX17_CONSTEXPR
+         : 406  reverse_iterator(iterator_type __x)
+    0.00 :   465c:   jmp    4381 <matchOrders()+0x91>
+    0.00 :   4661:   nopl   0x0(%rax)
+         : 409  { return size_type(this->_M_impl._M_finish - this->_M_impl._M_start); }
+    0.00 :   4668:   movabs $0xaaaaaaaaaaaaaaab,%rsi
+    0.00 :   4672:   mov    (%r14),%rdx
+    0.00 :   4675:   mov    %rbx,%r9
+    0.00 :   4678:   sub    %rdx,%r9
+    0.00 :   467b:   mov    %r9,%rax
+    0.00 :   467e:   sar    $0x2,%rax
+    0.00 :   4682:   imul   %rsi,%rax
+         : 417  if (max_size() - size() < __n)
+    0.00 :   4686:   movabs $0xaaaaaaaaaaaaaaa,%rsi
+    0.00 :   4690:   cmp    %rsi,%rax
+    0.00 :   4693:   je     4b5e <matchOrders()+0x86e>
+    0.00 :   4699:   cmp    %rbx,%rdx
+    0.00 :   469c:   je     4ac0 <matchOrders()+0x7d0>
+         : 423  const size_type __len = size() + (std::max)(size(), __n);
+    0.00 :   46a2:   lea    (%rax,%rax,1),%rsi
+         : 425  return (__len < size() || __len > max_size()) ? max_size() : __len;
+    0.00 :   46a6:   cmp    %rax,%rsi
+    0.00 :   46a9:   jb     4940 <matchOrders()+0x650>
+         : 428  return __n != 0 ? _Tr::allocate(_M_impl, __n) : pointer();
+    0.00 :   46af:   test   %rsi,%rsi
+    0.00 :   46b2:   jne    4b26 <matchOrders()+0x836>
+    0.00 :   46b8:   mov    %ecx,0x8(%r9)
+    0.00 :   46bc:   xor    %r8d,%r8d
+    0.00 :   46bf:   xor    %ecx,%ecx
+         : 434  _ForwardIterator __cur = __result;
+    0.00 :   46c1:   xor    %esi,%esi
+    0.00 :   46c3:   movq   %xmm0,(%r9)
+         : 437  for (; __first != __last; ++__first, (void)++__cur)
+    0.00 :   46c8:   mov    %rdx,%rax
+    0.00 :   46cb:   nopl   0x0(%rax,%rax,1)
+    0.00 :   46d0:   mov    (%rax),%r9
+    0.00 :   46d3:   add    $0xc,%rax
+    0.00 :   46d7:   add    $0xc,%rsi
+    0.00 :   46db:   mov    %r9,-0xc(%rsi)
+    0.00 :   46df:   mov    -0x4(%rax),%r9d
+    0.00 :   46e3:   mov    %r9d,-0x4(%rsi)
+    0.00 :   46e7:   cmp    %rbx,%rax
+    0.00 :   46ea:   jne    46d0 <matchOrders()+0x3e0>
+         : 448  ++__new_finish;
+    0.00 :   46ec:   sub    $0xc,%rax
+    0.00 :   46f0:   sub    %rdx,%rax
+    0.00 :   46f3:   and    $0xfffffffffffffffc,%rax
+    0.00 :   46f7:   lea    0x18(%rcx,%rax,1),%rbx
+         : 453  if (__p)
+    0.00 :   46fc:   test   %rdx,%rdx
+    0.00 :   46ff:   je     4728 <matchOrders()+0x438>
+         : 456  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   4701:   sub    %rdx,%rdi
+    0.00 :   4704:   mov    %rcx,0x10(%rsp)
+    0.00 :   4709:   mov    %rdi,%rsi
+    0.00 :   470c:   mov    %rdx,%rdi
+    0.00 :   470f:   mov    %r8,0x8(%rsp)
+    0.00 :   4714:   call   2520 <operator delete(void*, unsigned long)@plt>
+    0.00 :   4719:   mov    0x10(%rsp),%rcx
+    0.00 :   471e:   mov    0x8(%rsp),%r8
+    0.00 :   4723:   nopl   0x0(%rax,%rax,1)
+         : 466  this->_M_impl._M_start = __new_start;
+    0.00 :   4728:   mov    %rcx,(%r14)
+         : 468  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   472b:   mov    0x48(%rbp),%rcx
+         : 470  if (this->_M_impl._M_start._M_cur
+    0.00 :   472f:   mov    0x38(%rbp),%rax
+         : 472  this->_M_impl._M_finish = __new_finish;
+    0.00 :   4733:   mov    %rbx,0x6c6e(%rip)        # b3a8 <transactions+0x8>
+         : 474  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   473a:   lea    -0x18(%rcx),%rdx
+         : 476  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   473e:   mov    %r8,0x6c6b(%rip)        # b3b0 <transactions+0x10>
+         : 478  if (this->_M_impl._M_start._M_cur
+    0.00 :   4745:   cmp    %rdx,%rax
+    0.00 :   4748:   jne    4415 <matchOrders()+0x125>
+    0.00 :   474e:   xchg   %ax,%ax
+    0.00 :   4750:   mov    0x40(%rbp),%rdi
+    0.00 :   4754:   mov    $0x1f8,%esi
+    0.00 :   4759:   call   2520 <operator delete(void*, unsigned long)@plt>
+    0.00 :   475e:   mov    0x50(%rbp),%rax
+    0.00 :   4762:   lea    0x8(%rax),%rdx
+         : 487  _M_first = *__new_node;
+    0.00 :   4766:   mov    0x8(%rax),%rax
+    0.00 :   476a:   mov    %rdx,0x50(%rbp)
+         : 490  _M_last = _M_first + difference_type(_S_buffer_size());
+    0.00 :   476e:   lea    0x1f8(%rax),%rdx
+         : 492  _M_first = *__new_node;
+    0.00 :   4775:   movq   %rax,%xmm0
+    0.00 :   477a:   movq   %rdx,%xmm3
+    0.00 :   477f:   punpcklqdq %xmm3,%xmm0
+    0.00 :   4783:   movups %xmm0,0x40(%rbp)
+         : 497  this->_M_impl._M_start._M_cur = this->_M_impl._M_start._M_first;
+         : 498  }
+    0.00 :   4787:   jmp    4419 <matchOrders()+0x129>
+    0.00 :   478c:   nopl   0x0(%rax)
+         : 501  _M_node = _Rb_tree_decrement(_M_node);
+    0.00 :   4790:   mov    %r12,%rdi
+    0.00 :   4793:   call   2530 <std::_Rb_tree_decrement(std::_Rb_tree_node_base*)@plt>
+         : 504  (const_cast<_Base_ptr>(__position._M_node),
+    0.00 :   4798:   mov    %r12,%rsi
+         : 506  _M_node = _Rb_tree_decrement(_M_node);
+    0.00 :   479b:   mov    %rax,%rdi
+         : 508  (const_cast<_Base_ptr>(__position._M_node),
+    0.00 :   479e:   call   2440 <std::_Rb_tree_rebalance_for_erase(std::_Rb_tree_node_base*, std::_Rb_tree_node_base&)@plt>
+    0.00 :   47a3:   mov    %rax,%rbx
+         : 511  { _M_destroy_data(begin(), end(), _M_get_Tp_allocator()); }
+    0.00 :   47a6:   lea    0x28(%rax),%rdi
+    0.00 :   47aa:   call   7f90 <std::_Deque_base<Order, std::allocator<Order> >::~_Deque_base()>
+    0.00 :   47af:   mov    $0x78,%esi
+    0.00 :   47b4:   mov    %rbx,%rdi
+    0.00 :   47b7:   call   2520 <operator delete(void*, unsigned long)@plt>
+         : 517  --_M_impl._M_node_count;
+    0.00 :   47bc:   subq   $0x1,0x6c64(%rip)        # b428 <bids+0x28>
+    0.00 :   47c4:   jmp    4448 <matchOrders()+0x158>
+    0.00 :   47c9:   nopl   0x0(%rax)
+    0.00 :   47d0:   mov    0x40(%r15),%rdi
+    0.00 :   47d4:   mov    $0x1f8,%esi
+    0.00 :   47d9:   call   2520 <operator delete(void*, unsigned long)@plt>
+         : 524  this->_M_impl._M_start._M_set_node(this->_M_impl._M_start._M_node + 1);
+    0.00 :   47de:   mov    0x50(%r15),%rax
+    0.00 :   47e2:   lea    0x8(%rax),%rdx
+         : 527  _M_first = *__new_node;
+    0.00 :   47e6:   mov    0x8(%rax),%rax
+    0.00 :   47ea:   mov    %rdx,0x50(%r15)
+         : 530  _M_last = _M_first + difference_type(_S_buffer_size());
+    0.00 :   47ee:   lea    0x1f8(%rax),%rdx
+         : 532  _M_first = *__new_node;
+    0.00 :   47f5:   movq   %rax,%xmm0
+    0.00 :   47fa:   movq   %rdx,%xmm4
+    0.00 :   47ff:   punpcklqdq %xmm4,%xmm0
+    0.00 :   4803:   movups %xmm0,0x40(%r15)
+         : 537  }
+    0.00 :   4808:   jmp    4436 <matchOrders()+0x146>
+    0.00 :   480d:   nopl   (%rax)
+         : 540  { return size_type(this->_M_impl._M_finish - this->_M_impl._M_start); }
+    0.00 :   4810:   movabs $0xaaaaaaaaaaaaaaab,%rdx
+    0.00 :   481a:   mov    (%r14),%rbp
+    0.00 :   481d:   mov    %rbx,%r8
+    0.00 :   4820:   sub    %rbp,%r8
+    0.00 :   4823:   mov    %r8,%rax
+    0.00 :   4826:   sar    $0x2,%rax
+    0.00 :   482a:   imul   %rdx,%rax
+         : 548  if (max_size() - size() < __n)
+    0.00 :   482e:   movabs $0xaaaaaaaaaaaaaaa,%rdx
+    0.00 :   4838:   cmp    %rdx,%rax
+    0.00 :   483b:   je     4b5e <matchOrders()+0x86e>
+    0.00 :   4841:   cmp    %rbx,%rbp
+    0.00 :   4844:   je     4ae0 <matchOrders()+0x7f0>
+         : 554  const size_type __len = size() + (std::max)(size(), __n);
+    0.00 :   484a:   lea    (%rax,%rax,1),%rdx
+         : 556  return (__len < size() || __len > max_size()) ? max_size() : __len;
+    0.00 :   484e:   cmp    %rax,%rdx
+    0.00 :   4851:   jb     4a30 <matchOrders()+0x740>
+         : 559  return __n != 0 ? _Tr::allocate(_M_impl, __n) : pointer();
+    0.00 :   4857:   test   %rdx,%rdx
+    0.00 :   485a:   jne    4b44 <matchOrders()+0x854>
+    0.00 :   4860:   mov    %ecx,0x8(%r8)
+    0.00 :   4864:   xor    %edx,%edx
+    0.00 :   4866:   xor    %ecx,%ecx
+         : 565  _ForwardIterator __cur = __result;
+    0.00 :   4868:   xor    %esi,%esi
+    0.00 :   486a:   movq   %xmm0,(%r8)
+         : 568  for (; __first != __last; ++__first, (void)++__cur)
+    0.00 :   486f:   mov    %rbp,%rax
+    0.00 :   4872:   nopw   0x0(%rax,%rax,1)
+    0.00 :   4878:   mov    (%rax),%r8
+    0.00 :   487b:   add    $0xc,%rax
+    0.00 :   487f:   add    $0xc,%rsi
+    0.00 :   4883:   mov    %r8,-0xc(%rsi)
+    0.00 :   4887:   mov    -0x4(%rax),%r8d
+    0.00 :   488b:   mov    %r8d,-0x4(%rsi)
+    0.00 :   488f:   cmp    %rbx,%rax
+    0.00 :   4892:   jne    4878 <matchOrders()+0x588>
+         : 579  ++__new_finish;
+    0.00 :   4894:   sub    $0xc,%rax
+    0.00 :   4898:   sub    %rbp,%rax
+    0.00 :   489b:   and    $0xfffffffffffffffc,%rax
+    0.00 :   489f:   lea    0x18(%rcx,%rax,1),%rbx
+         : 584  if (__p)
+    0.00 :   48a4:   test   %rbp,%rbp
+    0.00 :   48a7:   je     48d0 <matchOrders()+0x5e0>
+         : 587  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   48a9:   sub    %rbp,%rdi
+    0.00 :   48ac:   mov    %rcx,0x10(%rsp)
+    0.00 :   48b1:   mov    %rdi,%rsi
+    0.00 :   48b4:   mov    %rbp,%rdi
+    0.00 :   48b7:   mov    %rdx,0x8(%rsp)
+    0.00 :   48bc:   call   2520 <operator delete(void*, unsigned long)@plt>
+    0.00 :   48c1:   mov    0x10(%rsp),%rcx
+    0.00 :   48c6:   mov    0x8(%rsp),%rdx
+    0.00 :   48cb:   nopl   0x0(%rax,%rax,1)
+         : 597  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   48d0:   mov    0x48(%r15),%rax
+         : 599  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   48d4:   mov    %rdx,0x6ad5(%rip)        # b3b0 <transactions+0x10>
+         : 601  if (this->_M_impl._M_start._M_cur
+    0.00 :   48db:   mov    0x38(%r15),%rdx
+         : 603  this->_M_impl._M_start = __new_start;
+    0.00 :   48df:   mov    %rcx,(%r14)
+         : 605  != this->_M_impl._M_start._M_last - 1)
+    0.00 :   48e2:   sub    $0x18,%rax
+         : 607  this->_M_impl._M_finish = __new_finish;
+    0.00 :   48e6:   mov    %rbx,0x6abb(%rip)        # b3a8 <transactions+0x8>
+         : 609  if (this->_M_impl._M_start._M_cur
+    0.00 :   48ed:   cmp    %rax,%rdx
+    0.00 :   48f0:   jne    44dd <matchOrders()+0x1ed>
+    0.00 :   48f6:   cs nopw 0x0(%rax,%rax,1)
+    0.00 :   4900:   mov    0x40(%r15),%rdi
+    0.00 :   4904:   mov    $0x1f8,%esi
+    0.00 :   4909:   call   2520 <operator delete(void*, unsigned long)@plt>
+         : 616  this->_M_impl._M_start._M_set_node(this->_M_impl._M_start._M_node + 1);
+    0.00 :   490e:   mov    0x50(%r15),%rax
+    0.00 :   4912:   lea    0x8(%rax),%rdx
+    0.00 :   4916:   mov    %rdx,0x50(%r15)
+         : 620  _M_first = *__new_node;
+    0.00 :   491a:   mov    0x8(%rax),%rdx
+         : 622  _M_last = _M_first + difference_type(_S_buffer_size());
+    0.00 :   491e:   lea    0x1f8(%rdx),%rax
+         : 624  _M_first = *__new_node;
+    0.00 :   4925:   movq   %rdx,%xmm0
+    0.00 :   492a:   movq   %rax,%xmm5
+    0.00 :   492f:   punpcklqdq %xmm5,%xmm0
+    0.00 :   4933:   movups %xmm0,0x40(%r15)
+         : 629  }
+    0.00 :   4938:   jmp    44e1 <matchOrders()+0x1f1>
+    0.00 :   493d:   nopl   (%rax)
+    0.00 :   4940:   movabs $0x7ffffffffffffff8,%r8
+         : 633  return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+    0.00 :   494a:   mov    %r8,%rdi
+    0.00 :   494d:   mov    %r9,0x28(%rsp)
+    0.00 :   4952:   mov    %rdx,0x20(%rsp)
+    0.00 :   4957:   mov    %ecx,0x10(%rsp)
+    0.00 :   495b:   mov    %r8,0x8(%rsp)
+    0.00 :   4960:   movq   %xmm0,0x18(%rsp)
+    0.00 :   4966:   call   2510 <operator new(unsigned long)@plt>
+         : 641  _Alloc_traits::construct(this->_M_impl,
+    0.00 :   496b:   mov    0x28(%rsp),%r9
+    0.00 :   4970:   mov    0x10(%rsp),%ecx
+         : 644  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   4974:   mov    0x8(%rsp),%r8
+    0.00 :   4979:   mov    0x20(%rsp),%rdx
+    0.00 :   497e:   mov    %rax,%rsi
+    0.00 :   4981:   movq   0x18(%rsp),%xmm0
+         : 649  _Alloc_traits::construct(this->_M_impl,
+    0.00 :   4987:   add    %rax,%r9
+         : 651  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   498a:   mov    0x6a1f(%rip),%rdi        # b3b0 <transactions+0x10>
+    0.00 :   4991:   mov    %ecx,0x8(%r9)
+         : 654  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   4995:   add    %rax,%r8
+    0.00 :   4998:   mov    %rax,%rcx
+    0.00 :   499b:   movq   %xmm0,(%r9)
+    0.00 :   49a0:   cmp    %rbx,%rdx
+    0.00 :   49a3:   jne    46c8 <matchOrders()+0x3d8>
+         : 660  ++__new_finish;
+    0.00 :   49a9:   lea    0xc(%rax),%rbx
+    0.00 :   49ad:   jmp    46fc <matchOrders()+0x40c>
+    0.00 :   49b2:   nopw   0x0(%rax,%rax,1)
+    0.00 :   49b8:   movabs $0x7ffffffffffffff8,%rcx
+    0.00 :   49c2:   mov    %rcx,%rdi
+    0.00 :   49c5:   mov    %r9,0x28(%rsp)
+    0.00 :   49ca:   mov    %rdx,0x20(%rsp)
+    0.00 :   49cf:   mov    %r8d,0x10(%rsp)
+    0.00 :   49d4:   mov    %rcx,0x8(%rsp)
+    0.00 :   49d9:   movq   %xmm0,0x18(%rsp)
+    0.00 :   49df:   call   2510 <operator new(unsigned long)@plt>
+         : 672  _Alloc_traits::construct(this->_M_impl,
+    0.00 :   49e4:   mov    0x28(%rsp),%r9
+    0.00 :   49e9:   mov    0x10(%rsp),%r8d
+         : 675  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   49ee:   mov    0x8(%rsp),%rcx
+    0.00 :   49f3:   mov    0x20(%rsp),%rdx
+    0.00 :   49f8:   mov    %rax,%rsi
+    0.00 :   49fb:   movq   0x18(%rsp),%xmm0
+         : 680  _Alloc_traits::construct(this->_M_impl,
+    0.00 :   4a01:   add    %rax,%r9
+         : 682  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   4a04:   mov    0x69a5(%rip),%rdi        # b3b0 <transactions+0x10>
+    0.00 :   4a0b:   mov    %r8d,0x8(%r9)
+         : 685  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   4a0f:   add    %rax,%rcx
+    0.00 :   4a12:   mov    %rax,%r8
+    0.00 :   4a15:   movq   %xmm0,(%r9)
+    0.00 :   4a1a:   cmp    %rbx,%rdx
+    0.00 :   4a1d:   jne    4558 <matchOrders()+0x268>
+         : 691  ++__new_finish;
+    0.00 :   4a23:   lea    0xc(%rax),%rbx
+    0.00 :   4a27:   jmp    458c <matchOrders()+0x29c>
+    0.00 :   4a2c:   nopl   0x0(%rax)
+    0.00 :   4a30:   movabs $0x7ffffffffffffff8,%rdx
+    0.00 :   4a3a:   mov    %rdx,%rdi
+    0.00 :   4a3d:   mov    %r8,0x20(%rsp)
+    0.00 :   4a42:   mov    %ecx,0x10(%rsp)
+    0.00 :   4a46:   mov    %rdx,0x8(%rsp)
+    0.00 :   4a4b:   movq   %xmm0,0x18(%rsp)
+    0.00 :   4a51:   call   2510 <operator new(unsigned long)@plt>
+         : 702  _Alloc_traits::construct(this->_M_impl,
+    0.00 :   4a56:   mov    0x20(%rsp),%r8
+    0.00 :   4a5b:   mov    0x10(%rsp),%ecx
+         : 705  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   4a5f:   mov    0x8(%rsp),%rdx
+    0.00 :   4a64:   movq   0x18(%rsp),%xmm0
+    0.00 :   4a6a:   mov    %rax,%rsi
+         : 709  _Alloc_traits::construct(this->_M_impl,
+    0.00 :   4a6d:   add    %rax,%r8
+         : 711  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   4a70:   mov    0x6939(%rip),%rdi        # b3b0 <transactions+0x10>
+    0.00 :   4a77:   mov    %ecx,0x8(%r8)
+         : 714  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   4a7b:   add    %rax,%rdx
+    0.00 :   4a7e:   mov    %rax,%rcx
+    0.00 :   4a81:   movq   %xmm0,(%r8)
+    0.00 :   4a86:   cmp    %rbx,%rbp
+    0.00 :   4a89:   jne    486f <matchOrders()+0x57f>
+         : 720  ++__new_finish;
+    0.00 :   4a8f:   lea    0xc(%rax),%rbx
+    0.00 :   4a93:   jmp    48a4 <matchOrders()+0x5b4>
+    0.00 :   4a98:   nopl   0x0(%rax,%rax,1)
+    0.00 :   4aa0:   add    $0x1,%rax
+    0.00 :   4aa4:   jb     49b8 <matchOrders()+0x6c8>
+         : 726  return (__len < size() || __len > max_size()) ? max_size() : __len;
+    0.00 :   4aaa:   cmp    %rcx,%rax
+    0.00 :   4aad:   cmova  %rcx,%rax
+    0.00 :   4ab1:   lea    (%rax,%rax,2),%rcx
+    0.00 :   4ab5:   shl    $0x2,%rcx
+    0.00 :   4ab9:   jmp    49c2 <matchOrders()+0x6d2>
+    0.00 :   4abe:   xchg   %ax,%ax
+    0.00 :   4ac0:   add    $0x1,%rax
+    0.00 :   4ac4:   jb     4940 <matchOrders()+0x650>
+    0.00 :   4aca:   cmp    %rsi,%rax
+    0.00 :   4acd:   cmova  %rsi,%rax
+    0.00 :   4ad1:   lea    (%rax,%rax,2),%r8
+    0.00 :   4ad5:   shl    $0x2,%r8
+    0.00 :   4ad9:   jmp    494a <matchOrders()+0x65a>
+    0.00 :   4ade:   xchg   %ax,%ax
+    0.00 :   4ae0:   add    $0x1,%rax
+    0.00 :   4ae4:   jb     4a30 <matchOrders()+0x740>
+    0.00 :   4aea:   movabs $0xaaaaaaaaaaaaaaa,%rdx
+    0.00 :   4af4:   cmp    %rdx,%rax
+    0.00 :   4af7:   cmova  %rdx,%rax
+    0.00 :   4afb:   lea    (%rax,%rax,2),%rdx
+    0.00 :   4aff:   shl    $0x2,%rdx
+    0.00 :   4b03:   jmp    4a3a <matchOrders()+0x74a>
+    0.00 :   4b08:   movabs $0xaaaaaaaaaaaaaaa,%rax
+    0.00 :   4b12:   cmp    %rax,%rcx
+    0.00 :   4b15:   cmova  %rax,%rcx
+    0.00 :   4b19:   lea    (%rcx,%rcx,2),%rcx
+    0.00 :   4b1d:   shl    $0x2,%rcx
+    0.00 :   4b21:   jmp    49c2 <matchOrders()+0x6d2>
+    0.00 :   4b26:   movabs $0xaaaaaaaaaaaaaaa,%rax
+    0.00 :   4b30:   cmp    %rax,%rsi
+    0.00 :   4b33:   cmova  %rax,%rsi
+    0.00 :   4b37:   lea    (%rsi,%rsi,2),%r8
+    0.00 :   4b3b:   shl    $0x2,%r8
+    0.00 :   4b3f:   jmp    494a <matchOrders()+0x65a>
+    0.00 :   4b44:   movabs $0xaaaaaaaaaaaaaaa,%rax
+    0.00 :   4b4e:   cmp    %rax,%rdx
+    0.00 :   4b51:   cmova  %rax,%rdx
+    0.00 :   4b55:   imul   $0xc,%rdx,%rdx
+    0.00 :   4b59:   jmp    4a3a <matchOrders()+0x74a>
+         : 766  __throw_length_error(__N(__s));
+    0.00 :   4b5e:   lea    0x44a3(%rip),%rdi        # 9008 <_IO_stdin_used+0x8>
+    0.00 :   4b65:   call   2410 <std::__throw_length_error(char const*)@plt>

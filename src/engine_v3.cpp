@@ -10,6 +10,14 @@ std::map<unsigned long long, std::deque<Order>> asks;
 
 std::vector<Transaction> transactions;
 
+void insertOrder(const Order &order)
+{
+    if (order.order_side == OrderSide::Buy)
+        bids[order.price].push_back(order);
+    else
+        asks[order.price].push_back(order);
+}
+
 void matchOrders()
 {
     auto highest_bid_entry = bids.rbegin();
@@ -99,10 +107,7 @@ int main(int argc, char **argv)
     for (const auto &order : orders)
     {
         const auto order_start = benchmark.startOperation();
-        if (order.order_side == OrderSide::Buy)
-            bids[order.price].push_back(order);
-        else
-            asks[order.price].push_back(order);
+        insertOrder(order);
         matchOrders();
         benchmark.endOperation(order_start);
     }

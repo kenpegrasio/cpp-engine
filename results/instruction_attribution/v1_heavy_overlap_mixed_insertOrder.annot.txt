@@ -1,0 +1,401 @@
+ Percent |	Source code & Disassembly of engine_v1 for cpu_core/cycles/ (325 samples, percent: local period)
+----------------------------------------------------------------------------------------------------------------
+         :
+         :
+         :
+         : 3    Disassembly of section .text:
+         :
+         : 5    0000000000003d50 <insertOrder(Order*)>:
+         : 6    std::priority_queue<Order *, std::vector<Order *>, AskPointerComparator> asks;
+         :
+         : 8    std::vector<Transaction> transactions;
+         :
+         : 10   void insertOrder(Order *order)
+         : 11   {
+    3.38 :   3d50:   endbr64
+    0.00 :   3d54:   push   %r15
+    0.00 :   3d56:   push   %r14
+    0.00 :   3d58:   push   %r13
+    0.00 :   3d5a:   push   %r12
+    0.00 :   3d5c:   push   %rbp
+    0.00 :   3d5d:   push   %rbx
+    0.00 :   3d5e:   mov    %rdi,%rbx
+    2.77 :   3d61:   sub    $0x18,%rsp
+         : 21   if (order->order_side == OrderSide::Buy)
+    0.00 :   3d65:   cmpl   $0x42,0x4(%rdi)
+    0.00 :   3d69:   je     3e38 <insertOrder(Order*)+0xe8>
+         : 24   */
+         : 25   _GLIBCXX20_CONSTEXPR
+         : 26   void
+         : 27   push_back(const value_type& __x)
+         : 28   {
+         : 29   if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
+    0.00 :   3d6f:   mov    0x6652(%rip),%rax        # a3c8 <asks+0x8>
+    4.00 :   3d76:   mov    0x6653(%rip),%r13        # a3d0 <asks+0x10>
+    0.00 :   3d7d:   mov    0x663c(%rip),%rbp        # a3c0 <asks>
+    0.00 :   3d84:   cmp    %r13,%rax
+    0.00 :   3d87:   je     3ee8 <insertOrder(Order*)+0x198>
+         : 35   {
+         : 36   _GLIBCXX_ASAN_ANNOTATE_GROW(1);
+         : 37   _Alloc_traits::construct(this->_M_impl, this->_M_impl._M_finish,
+         : 38   __x);
+         : 39   ++this->_M_impl._M_finish;
+    0.93 :   3d8d:   lea    0x8(%rax),%r12
+         : 41   template<typename _Tp, typename... _Args>
+         : 42   constexpr auto
+         : 43   construct_at(_Tp* __location, _Args&&... __args)
+         : 44   noexcept(noexcept(::new((void*)0) _Tp(std::declval<_Args>()...)))
+         : 45   -> decltype(::new((void*)0) _Tp(std::declval<_Args>()...))
+         : 46   { return ::new((void*)__location) _Tp(std::forward<_Args>(__args)...); }
+    0.31 :   3d91:   mov    %rdi,(%rax)
+    0.00 :   3d94:   mov    %r12,0x662d(%rip)        # a3c8 <asks+0x8>
+         : 49   _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         : 50   inline typename __normal_iterator<_Iterator, _Container>::difference_type
+         : 51   operator-(const __normal_iterator<_Iterator, _Container>& __lhs,
+         : 52   const __normal_iterator<_Iterator, _Container>& __rhs)
+         : 53   _GLIBCXX_NOEXCEPT
+         : 54   { return __lhs.base() - __rhs.base(); }
+    0.00 :   3d9b:   mov    %r12,%rax
+    0.00 :   3d9e:   sub    %rbp,%rax
+    0.00 :   3da1:   mov    %rax,%rsi
+    0.00 :   3da4:   sar    $0x3,%rsi
+         : 59   __glibcxx_requires_heap_pred(__first, __last - 1, __comp);
+         :
+         : 61   __decltype(__gnu_cxx::__ops::__iter_comp_val(_GLIBCXX_MOVE(__comp)))
+         : 62   __cmp(_GLIBCXX_MOVE(__comp));
+         : 63   _ValueType __value = _GLIBCXX_MOVE(*(__last - 1));
+         : 64   std::__push_heap(__first, _DistanceType((__last - __first) - 1),
+    0.92 :   3da8:   lea    -0x1(%rsi),%rcx
+         : 66   _Distance __parent = (__holeIndex - 1) / 2;
+    1.23 :   3dac:   sub    $0x2,%rsi
+    0.00 :   3db0:   mov    %rsi,%rdx
+    0.00 :   3db3:   shr    $0x3f,%rdx
+    0.00 :   3db7:   add    %rsi,%rdx
+    0.00 :   3dba:   sar    $1,%rdx
+         : 72   while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    0.00 :   3dbd:   test   %rcx,%rcx
+    0.00 :   3dc0:   jle    3fec <insertOrder(Order*)+0x29c>
+         :
+         : 76   struct AskPointerComparator
+         : 77   {
+         : 78   bool operator()(const Order *a, const Order *b) const
+         : 79   {
+         : 80   if (a->price != b->price)
+    3.08 :   3dc6:   mov    0x10(%rbx),%r8
+    2.46 :   3dca:   jmp    3e00 <insertOrder(Order*)+0xb0>
+    0.00 :   3dcc:   nopl   0x0(%rax)
+         : 84   return a->price > b->price;
+    0.31 :   3dd0:   cmp    %rsi,%r8
+    0.31 :   3dd3:   setb   %sil
+         : 87   { return __normal_iterator(_M_current + __n); }
+    2.15 :   3dd7:   lea    0x0(%rbp,%rcx,8),%rcx
+    1.23 :   3ddc:   test   %sil,%sil
+    0.00 :   3ddf:   je     3e23 <insertOrder(Order*)+0xd3>
+         : 91   *(__first + __holeIndex) = _GLIBCXX_MOVE(*(__first + __parent));
+    0.00 :   3de1:   mov    %rax,(%rcx)
+         : 93   __parent = (__holeIndex - 1) / 2;
+    0.00 :   3de4:   lea    -0x1(%rdx),%rcx
+    0.00 :   3de8:   mov    %rcx,%rax
+    0.92 :   3deb:   shr    $0x3f,%rax
+    0.00 :   3def:   add    %rcx,%rax
+    0.00 :   3df2:   mov    %rdx,%rcx
+    0.62 :   3df5:   sar    $1,%rax
+         : 100  while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    0.31 :   3df8:   test   %rdx,%rdx
+    0.00 :   3dfb:   je     3e20 <insertOrder(Order*)+0xd0>
+    0.31 :   3dfd:   mov    %rax,%rdx
+    0.92 :   3e00:   lea    0x0(%rbp,%rdx,8),%rdi
+         :
+         : 106  template<typename _Iterator, typename _Value>
+         : 107  _GLIBCXX20_CONSTEXPR
+         : 108  bool
+         : 109  operator()(_Iterator __it, _Value& __val)
+         : 110  { return bool(_M_comp(*__it, __val)); }
+    1.54 :   3e05:   mov    (%rdi),%rax
+         : 112  if (a->price != b->price)
+    0.92 :   3e08:   mov    0x10(%rax),%rsi
+    2.77 :   3e0c:   cmp    %r8,%rsi
+    0.00 :   3e0f:   jne    3dd0 <insertOrder(Order*)+0x80>
+         : 116  return a->order_id > b->order_id;
+    1.23 :   3e11:   mov    (%rbx),%esi
+    1.54 :   3e13:   cmp    %esi,(%rax)
+    0.00 :   3e15:   setg   %sil
+    0.00 :   3e19:   jmp    3dd7 <insertOrder(Order*)+0x87>
+    0.00 :   3e1b:   nopl   0x0(%rax,%rax,1)
+    0.62 :   3e20:   mov    %rdi,%rcx
+         : 123  *(__first + __holeIndex) = _GLIBCXX_MOVE(__value);
+    3.69 :   3e23:   mov    %rbx,(%rcx)
+         : 125  bids.push(order);
+         : 126  else
+         : 127  asks.push(order);
+         : 128  }
+    4.00 :   3e26:   add    $0x18,%rsp
+    0.00 :   3e2a:   pop    %rbx
+    0.00 :   3e2b:   pop    %rbp
+    0.61 :   3e2c:   pop    %r12
+    0.31 :   3e2e:   pop    %r13
+    0.31 :   3e30:   pop    %r14
+    1.54 :   3e32:   pop    %r15
+    0.31 :   3e34:   ret
+    0.00 :   3e35:   nopl   (%rax)
+         : 138  if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
+    0.00 :   3e38:   mov    0x65a9(%rip),%rax        # a3e8 <bids+0x8>
+    5.23 :   3e3f:   mov    0x65aa(%rip),%r13        # a3f0 <bids+0x10>
+    0.00 :   3e46:   mov    0x6593(%rip),%rbp        # a3e0 <bids>
+    0.61 :   3e4d:   cmp    %r13,%rax
+    0.00 :   3e50:   je     3f6a <insertOrder(Order*)+0x21a>
+         : 144  ++this->_M_impl._M_finish;
+    0.61 :   3e56:   lea    0x8(%rax),%r12
+    0.31 :   3e5a:   mov    %rdi,(%rax)
+    0.30 :   3e5d:   mov    %r12,0x6584(%rip)        # a3e8 <bids+0x8>
+         : 148  { return __lhs.base() - __rhs.base(); }
+    0.00 :   3e64:   mov    %r12,%rax
+    0.00 :   3e67:   sub    %rbp,%rax
+    0.00 :   3e6a:   mov    %rax,%rsi
+    0.00 :   3e6d:   sar    $0x3,%rsi
+         : 153  std::__push_heap(__first, _DistanceType((__last - __first) - 1),
+    0.92 :   3e71:   lea    -0x1(%rsi),%rcx
+         : 155  _Distance __parent = (__holeIndex - 1) / 2;
+    0.62 :   3e75:   sub    $0x2,%rsi
+    0.00 :   3e79:   mov    %rsi,%rdx
+    0.00 :   3e7c:   shr    $0x3f,%rdx
+    0.00 :   3e80:   add    %rsi,%rdx
+    0.00 :   3e83:   sar    $1,%rdx
+         : 161  while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    0.00 :   3e86:   test   %rcx,%rcx
+    0.00 :   3e89:   jle    3fec <insertOrder(Order*)+0x29c>
+         : 164  if (a->price != b->price)
+    0.00 :   3e8f:   mov    0x10(%rbx),%r8
+    4.62 :   3e93:   jmp    3ecd <insertOrder(Order*)+0x17d>
+    0.00 :   3e95:   nopl   (%rax)
+         : 168  return a->price < b->price;
+    6.16 :   3e98:   setb   %sil
+         : 170  { return __normal_iterator(_M_current + __n); }
+    4.61 :   3e9c:   lea    0x0(%rbp,%rcx,8),%rcx
+    2.46 :   3ea1:   test   %sil,%sil
+    0.00 :   3ea4:   je     3e23 <insertOrder(Order*)+0xd3>
+         : 174  *(__first + __holeIndex) = _GLIBCXX_MOVE(*(__first + __parent));
+    3.08 :   3eaa:   mov    %rax,(%rcx)
+         : 176  __parent = (__holeIndex - 1) / 2;
+    0.31 :   3ead:   lea    -0x1(%rdx),%rcx
+    0.62 :   3eb1:   mov    %rcx,%rax
+    0.00 :   3eb4:   shr    $0x3f,%rax
+    0.31 :   3eb8:   add    %rcx,%rax
+    0.00 :   3ebb:   mov    %rdx,%rcx
+    2.16 :   3ebe:   sar    $1,%rax
+         : 183  while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    3.39 :   3ec1:   test   %rdx,%rdx
+    0.00 :   3ec4:   je     3e20 <insertOrder(Order*)+0xd0>
+    3.69 :   3eca:   mov    %rax,%rdx
+    3.08 :   3ecd:   lea    0x0(%rbp,%rdx,8),%rdi
+    4.31 :   3ed2:   mov    (%rdi),%rax
+         : 189  if (a->price != b->price)
+    1.54 :   3ed5:   cmp    %r8,0x10(%rax)
+    0.00 :   3ed9:   jne    3e98 <insertOrder(Order*)+0x148>
+         : 192  return a->order_id > b->order_id;
+    1.54 :   3edb:   mov    (%rbx),%esi
+    3.38 :   3edd:   cmp    %esi,(%rax)
+    0.00 :   3edf:   setg   %sil
+    0.00 :   3ee3:   jmp    3e9c <insertOrder(Order*)+0x14c>
+    0.00 :   3ee5:   nopl   (%rax)
+         : 198  // Called by _M_fill_insert, _M_insert_aux etc.
+         : 199  _GLIBCXX20_CONSTEXPR
+         : 200  size_type
+         : 201  _M_check_len(size_type __n, const char* __s) const
+         : 202  {
+         : 203  if (max_size() - size() < __n)
+    0.00 :   3ee8:   movabs $0xfffffffffffffff,%rsi
+         : 205  { return size_type(this->_M_impl._M_finish - this->_M_impl._M_start); }
+    0.00 :   3ef2:   mov    %rax,%rcx
+    0.00 :   3ef5:   sub    %rbp,%rcx
+    0.00 :   3ef8:   mov    %rcx,%rdx
+    0.00 :   3efb:   sar    $0x3,%rdx
+         : 210  if (max_size() - size() < __n)
+    0.00 :   3eff:   cmp    %rsi,%rdx
+    0.00 :   3f02:   je     4115 <insertOrder(Order*)+0x3c5>
+         : 213  max(const _Tp& __a, const _Tp& __b)
+         : 214  {
+         : 215  // concept requirements
+         : 216  __glibcxx_function_requires(_LessThanComparableConcept<_Tp>)
+         : 217  //return  __a < __b ? __b : __a;
+         : 218  if (__a < __b)
+    0.00 :   3f08:   cmp    %rbp,%rax
+    0.00 :   3f0b:   je     408c <insertOrder(Order*)+0x33c>
+         : 221  __throw_length_error(__N(__s));
+         :
+         : 223  const size_type __len = size() + (std::max)(size(), __n);
+    0.00 :   3f11:   lea    (%rdx,%rdx,1),%rax
+         : 225  return (__len < size() || __len > max_size()) ? max_size() : __len;
+    0.00 :   3f15:   cmp    %rdx,%rax
+    0.00 :   3f18:   jb     3ff6 <insertOrder(Order*)+0x2a6>
+         : 228  _M_allocate(size_t __n)
+    0.00 :   3f1e:   xor    %r14d,%r14d
+         : 230  return __n != 0 ? _Tr::allocate(_M_impl, __n) : pointer();
+    0.00 :   3f21:   xor    %r15d,%r15d
+    0.00 :   3f24:   test   %rax,%rax
+    0.00 :   3f27:   jne    40da <insertOrder(Order*)+0x38a>
+    0.00 :   3f2d:   mov    %rbx,(%r15,%rcx,1)
+         : 235  if _GLIBCXX17_CONSTEXPR (_S_use_relocate())
+         : 236  {
+         : 237  __new_finish = _S_relocate(__old_start, __position.base(),
+         : 238  __new_start, _M_get_Tp_allocator());
+         :
+         : 240  ++__new_finish;
+    0.00 :   3f31:   lea    0x8(%r15,%rcx,1),%r12
+         : 242  __relocate_a_1(_Tp* __first, _Tp* __last,
+         : 243  _Tp* __result,
+         : 244  [[__maybe_unused__]] allocator<_Up>& __alloc) noexcept
+         : 245  {
+         : 246  ptrdiff_t __count = __last - __first;
+         : 247  if (__count > 0)
+    0.00 :   3f36:   test   %rcx,%rcx
+    0.00 :   3f39:   jg     406b <insertOrder(Order*)+0x31b>
+         : 250  if (__p)
+    0.00 :   3f3f:   test   %rbp,%rbp
+    0.00 :   3f42:   jne    4079 <insertOrder(Order*)+0x329>
+         : 253  #endif
+         : 254  std::_Destroy(__old_start, __old_finish, _M_get_Tp_allocator());
+         : 255  _GLIBCXX_ASAN_ANNOTATE_REINIT;
+         : 256  _M_deallocate(__old_start,
+         : 257  this->_M_impl._M_end_of_storage - __old_start);
+         : 258  this->_M_impl._M_start = __new_start;
+    0.00 :   3f48:   mov    %r15,0x6471(%rip)        # a3c0 <asks>
+         : 260  _ValueType __value = _GLIBCXX_MOVE(*(__last - 1));
+    0.00 :   3f4f:   mov    -0x8(%r12),%rbx
+    0.00 :   3f54:   mov    %r15,%rbp
+         : 263  this->_M_impl._M_finish = __new_finish;
+    0.00 :   3f57:   mov    %r12,0x646a(%rip)        # a3c8 <asks+0x8>
+         : 265  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   3f5e:   mov    %r14,0x646b(%rip)        # a3d0 <asks+0x10>
+    0.00 :   3f65:   jmp    3d9b <insertOrder(Order*)+0x4b>
+         : 268  if (max_size() - size() < __n)
+    0.00 :   3f6a:   movabs $0xfffffffffffffff,%rsi
+         : 270  { return size_type(this->_M_impl._M_finish - this->_M_impl._M_start); }
+    0.00 :   3f74:   mov    %rax,%rcx
+    0.00 :   3f77:   sub    %rbp,%rcx
+    0.00 :   3f7a:   mov    %rcx,%rdx
+    0.00 :   3f7d:   sar    $0x3,%rdx
+         : 275  if (max_size() - size() < __n)
+    0.00 :   3f81:   cmp    %rsi,%rdx
+    0.00 :   3f84:   je     4115 <insertOrder(Order*)+0x3c5>
+    0.00 :   3f8a:   cmp    %rbp,%rax
+    0.00 :   3f8d:   je     4024 <insertOrder(Order*)+0x2d4>
+         : 280  const size_type __len = size() + (std::max)(size(), __n);
+    0.00 :   3f93:   lea    (%rdx,%rdx,1),%rax
+         : 282  return (__len < size() || __len > max_size()) ? max_size() : __len;
+    0.00 :   3f97:   cmp    %rdx,%rax
+    0.00 :   3f9a:   jb     40cb <insertOrder(Order*)+0x37b>
+         : 285  return __n != 0 ? _Tr::allocate(_M_impl, __n) : pointer();
+    0.00 :   3fa0:   test   %rax,%rax
+    0.00 :   3fa3:   jne    40f8 <insertOrder(Order*)+0x3a8>
+    0.00 :   3fa9:   xor    %r15d,%r15d
+    0.00 :   3fac:   xor    %r14d,%r14d
+    0.00 :   3faf:   mov    %rbx,(%r14,%rcx,1)
+         : 291  ++__new_finish;
+    0.00 :   3fb3:   lea    0x8(%r14,%rcx,1),%r12
+    0.00 :   3fb8:   test   %rcx,%rcx
+    0.00 :   3fbb:   jg     40aa <insertOrder(Order*)+0x35a>
+         : 295  if (__p)
+    0.00 :   3fc1:   test   %rbp,%rbp
+    0.00 :   3fc4:   jne    40b8 <insertOrder(Order*)+0x368>
+         : 298  this->_M_impl._M_start = __new_start;
+    0.00 :   3fca:   mov    %r14,0x640f(%rip)        # a3e0 <bids>
+    0.00 :   3fd1:   mov    -0x8(%r12),%rbx
+    0.00 :   3fd6:   mov    %r14,%rbp
+         : 302  this->_M_impl._M_finish = __new_finish;
+    0.00 :   3fd9:   mov    %r12,0x6408(%rip)        # a3e8 <bids+0x8>
+         : 304  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   3fe0:   mov    %r15,0x6409(%rip)        # a3f0 <bids+0x10>
+    0.00 :   3fe7:   jmp    3e64 <insertOrder(Order*)+0x114>
+    0.31 :   3fec:   lea    -0x8(%rbp,%rax,1),%rcx
+    0.31 :   3ff1:   jmp    3e23 <insertOrder(Order*)+0xd3>
+    0.00 :   3ff6:   movabs $0x7ffffffffffffff8,%r14
+         : 310  std::align_val_t __al = std::align_val_t(alignof(_Tp));
+         : 311  return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp),
+         : 312  __al));
+         : 313  }
+         : 314  #endif
+         : 315  return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+    0.00 :   4000:   mov    %r14,%rdi
+    0.00 :   4003:   mov    %rcx,0x8(%rsp)
+    0.00 :   4008:   call   2460 <operator new(unsigned long)@plt>
+         : 319  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   400d:   mov    0x63bc(%rip),%r13        # a3d0 <asks+0x10>
+         : 321  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   4014:   mov    0x8(%rsp),%rcx
+    0.00 :   4019:   mov    %rax,%r15
+    0.00 :   401c:   add    %rax,%r14
+    0.00 :   401f:   jmp    3f2d <insertOrder(Order*)+0x1dd>
+    0.00 :   4024:   add    $0x1,%rdx
+    0.00 :   4028:   jb     40cb <insertOrder(Order*)+0x37b>
+         : 328  return (__len < size() || __len > max_size()) ? max_size() : __len;
+    0.00 :   402e:   movabs $0xfffffffffffffff,%rax
+    0.00 :   4038:   cmp    %rax,%rdx
+    0.00 :   403b:   cmova  %rax,%rdx
+    0.00 :   403f:   lea    0x0(,%rdx,8),%r15
+    0.00 :   4047:   mov    %r15,%rdi
+    0.00 :   404a:   mov    %rcx,0x8(%rsp)
+    0.00 :   404f:   call   2460 <operator new(unsigned long)@plt>
+         : 336  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   4054:   mov    0x6395(%rip),%r13        # a3f0 <bids+0x10>
+    0.00 :   405b:   mov    0x8(%rsp),%rcx
+    0.00 :   4060:   mov    %rax,%r14
+         : 340  this->_M_impl._M_end_of_storage = __new_start + __len;
+    0.00 :   4063:   add    %rax,%r15
+    0.00 :   4066:   jmp    3faf <insertOrder(Order*)+0x25f>
+         : 343  __gnu_cxx::__normal_iterator<_Tp*, void> __out(__result);
+         : 344  __out = std::__relocate_a_1(__first, __last, __out, __alloc);
+         : 345  return __out.base();
+         : 346  }
+         : 347  #endif
+         : 348  __builtin_memmove(__result, __first, __count * sizeof(_Tp));
+    0.00 :   406b:   mov    %rcx,%rdx
+    0.00 :   406e:   mov    %rbp,%rsi
+    0.00 :   4071:   mov    %r15,%rdi
+    0.00 :   4074:   call   2570 <memmove@plt>
+         : 353  this->_M_impl._M_end_of_storage - __old_start);
+    0.00 :   4079:   mov    %r13,%rsi
+         : 355  _GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n),
+         : 356  std::align_val_t(alignof(_Tp)));
+         : 357  return;
+         : 358  }
+         : 359  #endif
+         : 360  _GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n));
+    0.00 :   407c:   mov    %rbp,%rdi
+    0.00 :   407f:   sub    %rbp,%rsi
+    0.00 :   4082:   call   2470 <operator delete(void*, unsigned long)@plt>
+    0.00 :   4087:   jmp    3f48 <insertOrder(Order*)+0x1f8>
+    0.00 :   408c:   add    $0x1,%rdx
+    0.00 :   4090:   jb     3ff6 <insertOrder(Order*)+0x2a6>
+    0.00 :   4096:   cmp    %rsi,%rdx
+    0.00 :   4099:   cmova  %rsi,%rdx
+         : 369  return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+    0.00 :   409d:   lea    0x0(,%rdx,8),%r14
+    0.00 :   40a5:   jmp    4000 <insertOrder(Order*)+0x2b0>
+    0.00 :   40aa:   mov    %rcx,%rdx
+    0.00 :   40ad:   mov    %rbp,%rsi
+    0.00 :   40b0:   mov    %r14,%rdi
+    0.00 :   40b3:   call   2570 <memmove@plt>
+    0.00 :   40b8:   mov    %r13,%rsi
+         : 377  _GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n));
+    0.00 :   40bb:   mov    %rbp,%rdi
+    0.00 :   40be:   sub    %rbp,%rsi
+    0.00 :   40c1:   call   2470 <operator delete(void*, unsigned long)@plt>
+    0.00 :   40c6:   jmp    3fca <insertOrder(Order*)+0x27a>
+    0.00 :   40cb:   movabs $0x7ffffffffffffff8,%r15
+    0.00 :   40d5:   jmp    4047 <insertOrder(Order*)+0x2f7>
+    0.00 :   40da:   movabs $0xfffffffffffffff,%rdx
+    0.00 :   40e4:   cmp    %rdx,%rax
+    0.00 :   40e7:   cmova  %rdx,%rax
+         : 387  return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+    0.00 :   40eb:   lea    0x0(,%rax,8),%r14
+    0.00 :   40f3:   jmp    4000 <insertOrder(Order*)+0x2b0>
+    0.00 :   40f8:   movabs $0xfffffffffffffff,%rdx
+    0.00 :   4102:   cmp    %rdx,%rax
+    0.00 :   4105:   cmovbe %rax,%rdx
+    0.00 :   4109:   mov    %rdx,%r15
+    0.00 :   410c:   shl    $0x3,%r15
+    0.00 :   4110:   jmp    4047 <insertOrder(Order*)+0x2f7>
+         : 396  __throw_length_error(__N(__s));
+    0.00 :   4115:   lea    0x3eec(%rip),%rdi        # 8008 <_IO_stdin_used+0x8>
+    0.00 :   411c:   call   2380 <std::__throw_length_error(char const*)@plt>

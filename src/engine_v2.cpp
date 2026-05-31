@@ -13,6 +13,14 @@ std::priority_queue<Order, std::vector<Order>, AskComparator> asks;
 
 std::vector<Transaction> transactions;
 
+void insertOrder(const Order &order)
+{
+    if (order.order_side == OrderSide::Buy)
+        bids.push(order);
+    else
+        asks.push(order);
+}
+
 void matchOrders()
 {
     while (!bids.empty() && !asks.empty())
@@ -79,10 +87,7 @@ int main(int argc, char **argv)
     {
         const auto order_start = benchmark.startOperation();
 
-        if (order.order_side == OrderSide::Buy)
-            bids.push(order);
-        else
-            asks.push(order);
+        insertOrder(order);
         matchOrders();
 
         benchmark.endOperation(order_start);

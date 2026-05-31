@@ -1,0 +1,216 @@
+ Percent |	Source code & Disassembly of engine_v3 for cpu_core/cycles/ (540 samples, percent: local period)
+----------------------------------------------------------------------------------------------------------------
+         :
+         :
+         :
+         : 3    Disassembly of section .text:
+         :
+         : 5    0000000000004130 <insertOrder(Order const&)>:
+         : 6    std::map<unsigned long long, std::deque<Order>> asks;
+         :
+         : 8    std::vector<Transaction> transactions;
+         :
+         : 10   void insertOrder(const Order &order)
+         : 11   {
+    1.67 :   4130:   endbr64
+    0.00 :   4134:   push   %rbx
+    0.00 :   4135:   mov    %rdi,%rbx
+    0.00 :   4138:   sub    $0x10,%rsp
+    0.00 :   413c:   mov    %fs:0x28,%rax
+    0.00 :   4145:   mov    %rax,0x8(%rsp)
+    0.00 :   414a:   xor    %eax,%eax
+         : 19   if (order.order_side == OrderSide::Buy)
+    0.00 :   414c:   cmpl   $0x42,0x4(%rdi)
+    1.66 :   4150:   je     4220 <insertOrder(Order const&)+0xf0>
+         : 22   _M_rightmost() const _GLIBCXX_NOEXCEPT
+         : 23   { return this->_M_impl._M_header._M_right; }
+         :
+         : 25   _Link_type
+         : 26   _M_mbegin() const _GLIBCXX_NOEXCEPT
+         : 27   { return static_cast<_Link_type>(this->_M_impl._M_header._M_parent); }
+    0.00 :   4156:   mov    0x7273(%rip),%rdx        # b3d0 <asks+0x10>
+         : 29   _Compare, _Alloc>::iterator
+         : 30   _Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::
+         : 31   _M_lower_bound(_Link_type __x, _Base_ptr __y,
+         : 32   const _Key& __k)
+         : 33   {
+         : 34   while (__x != 0)
+    0.00 :   415d:   test   %rdx,%rdx
+    0.00 :   4160:   je     41f8 <insertOrder(Order const&)+0xc8>
+         : 37   struct less : public binary_function<_Tp, _Tp, bool>
+         : 38   {
+         : 39   _GLIBCXX14_CONSTEXPR
+         : 40   bool
+         : 41   operator()(const _Tp& __x, const _Tp& __y) const
+         : 42   { return __x < __y; }
+    0.00 :   4166:   lea    0x725b(%rip),%r8        # b3c8 <asks+0x8>
+    0.00 :   416d:   mov    0x10(%rdi),%rdi
+    0.00 :   4171:   mov    %r8,%rsi
+    0.00 :   4174:   jmp    4188 <insertOrder(Order const&)+0x58>
+    0.00 :   4176:   cs nopw 0x0(%rax,%rax,1)
+         : 48   if (!_M_impl._M_key_compare(_S_key(__x), __k))
+         : 49   __y = __x, __x = _S_left(__x);
+         : 50   else
+         : 51   __x = _S_right(__x);
+    0.00 :   4180:   mov    %rcx,%rdx
+         : 53   while (__x != 0)
+    0.00 :   4183:   test   %rdx,%rdx
+    0.00 :   4186:   je     41a1 <insertOrder(Order const&)+0x71>
+         : 56   { return static_cast<_Link_type>(__x->_M_left); }
+    0.00 :   4188:   mov    0x10(%rdx),%rax
+         : 58   { return static_cast<_Link_type>(__x->_M_right); }
+    0.00 :   418c:   mov    0x18(%rdx),%rcx
+         : 60   if (!_M_impl._M_key_compare(_S_key(__x), __k))
+    0.00 :   4190:   cmp    %rdi,0x20(%rdx)
+    0.00 :   4194:   jb     4180 <insertOrder(Order const&)+0x50>
+         : 63   __y = __x, __x = _S_left(__x);
+    0.00 :   4196:   mov    %rdx,%rsi
+    0.00 :   4199:   mov    %rax,%rdx
+         : 66   while (__x != 0)
+    0.00 :   419c:   test   %rdx,%rdx
+    0.00 :   419f:   jne    4188 <insertOrder(Order const&)+0x58>
+         : 69   // concept requirements
+         : 70   __glibcxx_function_requires(_DefaultConstructibleConcept<mapped_type>)
+         :
+         : 72   iterator __i = lower_bound(__k);
+         : 73   // __i->first is greater than or equivalent to __k.
+         : 74   if (__i == end() || key_comp()(__k, (*__i).first))
+    0.00 :   41a1:   cmp    %r8,%rsi
+    0.00 :   41a4:   je     4200 <insertOrder(Order const&)+0xd0>
+    0.00 :   41a6:   cmp    0x20(%rsi),%rdi
+    0.00 :   41aa:   jb     4200 <insertOrder(Order const&)+0xd0>
+         : 79   */
+         : 80   void
+         : 81   push_back(const value_type& __x)
+         : 82   {
+         : 83   if (this->_M_impl._M_finish._M_cur
+         : 84   != this->_M_impl._M_finish._M_last - 1)
+    0.00 :   41ac:   mov    0x68(%rsi),%rcx
+         : 86   if (this->_M_impl._M_finish._M_cur
+    0.00 :   41b0:   mov    0x58(%rsi),%rax
+         : 88   != this->_M_impl._M_finish._M_last - 1)
+    0.00 :   41b4:   lea    -0x18(%rcx),%rdx
+         : 90   if (this->_M_impl._M_finish._M_cur
+    0.00 :   41b8:   cmp    %rdx,%rax
+    0.00 :   41bb:   je     42c8 <insertOrder(Order const&)+0x198>
+         : 93   template<typename _Tp, typename... _Args>
+         : 94   constexpr auto
+         : 95   construct_at(_Tp* __location, _Args&&... __args)
+         : 96   noexcept(noexcept(::new((void*)0) _Tp(std::declval<_Args>()...)))
+         : 97   -> decltype(::new((void*)0) _Tp(std::declval<_Args>()...))
+         : 98   { return ::new((void*)__location) _Tp(std::forward<_Args>(__args)...); }
+    0.00 :   41c1:   movdqu (%rbx),%xmm0
+         : 100  {
+         : 101  _Alloc_traits::construct(this->_M_impl,
+         : 102  this->_M_impl._M_finish._M_cur, __x);
+         : 103  ++this->_M_impl._M_finish._M_cur;
+    0.00 :   41c5:   add    $0x18,%rax
+    0.00 :   41c9:   movups %xmm0,-0x18(%rax)
+    0.00 :   41cd:   mov    0x10(%rbx),%rdx
+    0.00 :   41d1:   mov    %rdx,-0x8(%rax)
+    0.00 :   41d5:   mov    %rax,0x58(%rsi)
+         : 109  bids[order.price].push_back(order);
+         : 110  else
+         : 111  asks[order.price].push_back(order);
+         : 112  }
+    0.56 :   41d9:   mov    0x8(%rsp),%rax
+    0.00 :   41de:   sub    %fs:0x28,%rax
+    0.00 :   41e7:   jne    42e9 <insertOrder(Order const&)+0x1b9>
+    0.00 :   41ed:   add    $0x10,%rsp
+    0.19 :   41f1:   pop    %rbx
+    0.74 :   41f2:   ret
+    0.00 :   41f3:   nopl   0x0(%rax,%rax,1)
+    0.00 :   41f8:   lea    0x71c9(%rip),%rsi        # b3c8 <asks+0x8>
+    0.00 :   41ff:   nop
+         : 122  asks[order.price].push_back(order);
+    0.00 :   4200:   lea    0x10(%rbx),%rax
+         : 124  #if __cplusplus >= 201103L
+         : 125  __i = _M_t._M_emplace_hint_unique(__i, std::piecewise_construct,
+    0.00 :   4204:   mov    %rsp,%rdx
+    0.00 :   4207:   lea    0x71b2(%rip),%rdi        # b3c0 <asks>
+    0.00 :   420e:   mov    %rax,(%rsp)
+    0.00 :   4212:   call   3f40 <std::_Rb_tree_iterator<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > > std::_Rb_tree<unsigned long long, std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > >, std::_Select1st<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > >, std::less<unsigned long long>, std::allocator<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned long long const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > >, std::piecewise_construct_t const&, std::tuple<unsigned long long const&>&&, std::tuple<>&&) [clone .isra.0]>
+    0.00 :   4217:   mov    %rax,%rsi
+    0.00 :   421a:   jmp    41ac <insertOrder(Order const&)+0x7c>
+    0.00 :   421c:   nopl   0x0(%rax)
+         : 133  { return static_cast<_Link_type>(this->_M_impl._M_header._M_parent); }
+    0.00 :   4220:   mov    0x71e9(%rip),%rdx        # b410 <bids+0x10>
+         : 135  while (__x != 0)
+    0.00 :   4227:   test   %rdx,%rdx
+    0.00 :   422a:   je     429a <insertOrder(Order const&)+0x16a>
+    0.00 :   422c:   lea    0x71d5(%rip),%r8        # b408 <bids+0x8>
+    0.00 :   4233:   mov    0x10(%rdi),%rdi
+    0.56 :   4237:   mov    %r8,%rsi
+    0.00 :   423a:   jmp    4248 <insertOrder(Order const&)+0x118>
+    0.00 :   423c:   nopl   0x0(%rax)
+         : 143  __x = _S_right(__x);
+    9.07 :   4240:   mov    %rcx,%rdx
+         : 145  while (__x != 0)
+   10.93 :   4243:   test   %rdx,%rdx
+    0.00 :   4246:   je     4261 <insertOrder(Order const&)+0x131>
+         : 148  { return static_cast<_Link_type>(__x->_M_left); }
+   10.92 :   4248:   mov    0x10(%rdx),%rax
+         : 150  { return static_cast<_Link_type>(__x->_M_right); }
+   29.45 :   424c:   mov    0x18(%rdx),%rcx
+         : 152  if (!_M_impl._M_key_compare(_S_key(__x), __k))
+    0.19 :   4250:   cmp    %rdi,0x20(%rdx)
+    0.00 :   4254:   jb     4240 <insertOrder(Order const&)+0x110>
+         : 155  __y = __x, __x = _S_left(__x);
+    7.96 :   4256:   mov    %rdx,%rsi
+   10.18 :   4259:   mov    %rax,%rdx
+         : 158  while (__x != 0)
+    0.37 :   425c:   test   %rdx,%rdx
+    0.00 :   425f:   jne    4248 <insertOrder(Order const&)+0x118>
+         : 161  if (__i == end() || key_comp()(__k, (*__i).first))
+    0.74 :   4261:   cmp    %r8,%rsi
+    0.00 :   4264:   je     42a8 <insertOrder(Order const&)+0x178>
+    0.56 :   4266:   cmp    0x20(%rsi),%rdi
+    0.00 :   426a:   jb     42a8 <insertOrder(Order const&)+0x178>
+         : 166  != this->_M_impl._M_finish._M_last - 1)
+    5.74 :   426c:   mov    0x68(%rsi),%rcx
+         : 168  if (this->_M_impl._M_finish._M_cur
+    0.93 :   4270:   mov    0x58(%rsi),%rax
+         : 170  != this->_M_impl._M_finish._M_last - 1)
+    0.37 :   4274:   lea    -0x18(%rcx),%rdx
+         : 172  if (this->_M_impl._M_finish._M_cur
+    0.56 :   4278:   cmp    %rdx,%rax
+    0.00 :   427b:   je     42c8 <insertOrder(Order const&)+0x198>
+    0.56 :   427d:   movdqu (%rbx),%xmm1
+         : 176  ++this->_M_impl._M_finish._M_cur;
+    0.19 :   4281:   add    $0x18,%rax
+    0.00 :   4285:   movups %xmm1,-0x18(%rax)
+    4.81 :   4289:   mov    0x10(%rbx),%rdx
+    0.37 :   428d:   mov    %rdx,-0x8(%rax)
+    0.19 :   4291:   mov    %rax,0x58(%rsi)
+    0.00 :   4295:   jmp    41d9 <insertOrder(Order const&)+0xa9>
+    0.00 :   429a:   lea    0x7167(%rip),%rsi        # b408 <bids+0x8>
+    0.00 :   42a1:   nopl   0x0(%rax)
+         : 185  bids[order.price].push_back(order);
+    0.00 :   42a8:   lea    0x10(%rbx),%rax
+         : 187  __i = _M_t._M_emplace_hint_unique(__i, std::piecewise_construct,
+    0.00 :   42ac:   mov    %rsp,%rdx
+    0.00 :   42af:   lea    0x714a(%rip),%rdi        # b400 <bids>
+    0.00 :   42b6:   mov    %rax,(%rsp)
+    0.00 :   42ba:   call   3f40 <std::_Rb_tree_iterator<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > > std::_Rb_tree<unsigned long long, std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > >, std::_Select1st<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > >, std::less<unsigned long long>, std::allocator<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned long long const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned long long const, std::deque<Order, std::allocator<Order> > > >, std::piecewise_construct_t const&, std::tuple<unsigned long long const&>&&, std::tuple<>&&) [clone .isra.0]>
+    0.00 :   42bf:   mov    %rax,%rsi
+    0.00 :   42c2:   jmp    426c <insertOrder(Order const&)+0x13c>
+    0.00 :   42c4:   nopl   0x0(%rax)
+         : 195  }
+         : 196  else
+         : 197  _M_push_back_aux(__x);
+    0.00 :   42c8:   mov    0x8(%rsp),%rax
+    0.56 :   42cd:   sub    %fs:0x28,%rax
+    0.00 :   42d6:   jne    42e9 <insertOrder(Order const&)+0x1b9>
+         : 201  }
+    0.00 :   42d8:   add    $0x10,%rsp
+         : 203  std::tuple<const key_type&>(__k),
+         : 204  std::tuple<>());
+         : 205  #else
+         : 206  __i = insert(__i, value_type(__k, mapped_type()));
+         : 207  #endif
+         : 208  return (*__i).second;
+    0.00 :   42dc:   lea    0x28(%rsi),%rdi
+    0.00 :   42e0:   mov    %rbx,%rsi
+    0.00 :   42e3:   pop    %rbx
+    0.00 :   42e4:   jmp    6dd0 <void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order const&>(Order const&)>
+    0.00 :   42e9:   call   2550 <__stack_chk_fail@plt>

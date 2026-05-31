@@ -1,0 +1,195 @@
+ Percent |	Source code & Disassembly of engine_v2 for cpu_core/cycles/ (314 samples, percent: local period)
+----------------------------------------------------------------------------------------------------------------
+         :
+         :
+         :
+         : 3    Disassembly of section .text:
+         :
+         : 5    0000000000004a60 <insertOrder(Order const&)>:
+         : 6    std::priority_queue<Order, std::vector<Order>, AskComparator> asks;
+         :
+         : 8    std::vector<Transaction> transactions;
+         :
+         : 10   void insertOrder(const Order &order)
+         : 11   {
+    4.14 :   4a60:   endbr64
+    0.00 :   4a64:   sub    $0x8,%rsp
+         : 14   if (order.order_side == OrderSide::Buy)
+    0.00 :   4a68:   cmpl   $0x42,0x4(%rdi)
+         : 16   {
+    1.27 :   4a6c:   mov    %rdi,%rsi
+         : 18   if (order.order_side == OrderSide::Buy)
+    0.00 :   4a6f:   je     4b48 <insertOrder(Order const&)+0xe8>
+         : 20   *  sequence.
+         : 21   */
+         : 22   void
+         : 23   push(const value_type& __x)
+         : 24   {
+         : 25   c.push_back(__x);
+    0.00 :   4a75:   lea    0x5944(%rip),%rdi        # a3c0 <asks>
+    0.00 :   4a7c:   call   6ef0 <std::vector<Order, std::allocator<Order> >::push_back(Order const&)>
+         : 28   _GLIBCXX_CONSTEXPR __normal_iterator() _GLIBCXX_NOEXCEPT
+         : 29   : _M_current(_Iterator()) { }
+         :
+         : 31   explicit _GLIBCXX20_CONSTEXPR
+         : 32   __normal_iterator(const _Iterator& __i) _GLIBCXX_NOEXCEPT
+         : 33   : _M_current(__i) { }
+    0.00 :   4a81:   mov    0x5940(%rip),%rax        # a3c8 <asks+0x8>
+    0.32 :   4a88:   mov    0x5931(%rip),%rdi        # a3c0 <asks>
+         : 36   _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         : 37   inline typename __normal_iterator<_Iterator, _Container>::difference_type
+         : 38   operator-(const __normal_iterator<_Iterator, _Container>& __lhs,
+         : 39   const __normal_iterator<_Iterator, _Container>& __rhs)
+         : 40   _GLIBCXX_NOEXCEPT
+         : 41   { return __lhs.base() - __rhs.base(); }
+    0.00 :   4a8f:   movabs $0xaaaaaaaaaaaaaaab,%rdx
+         : 43   __glibcxx_requires_irreflexive_pred(__first, __last, __comp);
+         : 44   __glibcxx_requires_heap_pred(__first, __last - 1, __comp);
+         :
+         : 46   __decltype(__gnu_cxx::__ops::__iter_comp_val(_GLIBCXX_MOVE(__comp)))
+         : 47   __cmp(_GLIBCXX_MOVE(__comp));
+         : 48   _ValueType __value = _GLIBCXX_MOVE(*(__last - 1));
+    0.00 :   4a99:   mov    -0x18(%rax),%r10d
+    0.64 :   4a9d:   mov    -0x14(%rax),%r11
+   30.89 :   4aa1:   mov    -0x8(%rax),%r9
+    0.00 :   4aa5:   sub    %rdi,%rax
+    0.00 :   4aa8:   mov    %rax,%rcx
+    0.00 :   4aab:   sar    $0x3,%rax
+    0.00 :   4aaf:   imul   %rdx,%rax
+         : 56   std::__push_heap(__first, _DistanceType((__last - __first) - 1),
+    0.00 :   4ab3:   lea    -0x1(%rax),%rsi
+         : 58   _Distance __parent = (__holeIndex - 1) / 2;
+    0.00 :   4ab7:   sub    $0x2,%rax
+    0.00 :   4abb:   mov    %rax,%rdx
+    3.82 :   4abe:   shr    $0x3f,%rdx
+    0.00 :   4ac2:   add    %rax,%rdx
+    0.00 :   4ac5:   sar    $1,%rdx
+         : 64   while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    0.00 :   4ac8:   test   %rsi,%rsi
+    0.00 :   4acb:   jg     4b14 <insertOrder(Order const&)+0xb4>
+    0.00 :   4acd:   jmp    4c13 <insertOrder(Order const&)+0x1b3>
+    0.00 :   4ad2:   nopw   0x0(%rax,%rax,1)
+         : 69   {
+         : 70   // When asking, lower prices will win. If same price, prioritize the first who ask
+         : 71   bool operator()(const Order &a, const Order &b) const
+         : 72   {
+         : 73   if (a.price != b.price)
+         : 74   return a.price > b.price;
+    9.55 :   4ad8:   setb   %r8b
+         : 76   { return __normal_iterator(_M_current + __n); }
+    4.46 :   4adc:   lea    (%rsi,%rsi,2),%rax
+    0.00 :   4ae0:   lea    (%rdi,%rax,8),%rax
+    0.96 :   4ae4:   test   %r8b,%r8b
+    0.00 :   4ae7:   je     4b33 <insertOrder(Order const&)+0xd3>
+         : 81   *(__first + __holeIndex) = _GLIBCXX_MOVE(*(__first + __parent));
+    3.82 :   4ae9:   movdqu (%rcx),%xmm0
+    7.33 :   4aed:   movups %xmm0,(%rax)
+    0.64 :   4af0:   mov    0x10(%rcx),%rsi
+    0.32 :   4af4:   mov    %rsi,0x10(%rax)
+         : 86   __parent = (__holeIndex - 1) / 2;
+    0.00 :   4af8:   lea    -0x1(%rdx),%rsi
+    0.64 :   4afc:   mov    %rsi,%rax
+    0.00 :   4aff:   shr    $0x3f,%rax
+    0.32 :   4b03:   add    %rsi,%rax
+    0.00 :   4b06:   mov    %rdx,%rsi
+    4.14 :   4b09:   sar    $1,%rax
+         : 93   while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    0.32 :   4b0c:   test   %rdx,%rdx
+    0.00 :   4b0f:   je     4b30 <insertOrder(Order const&)+0xd0>
+    0.32 :   4b11:   mov    %rax,%rdx
+    0.00 :   4b14:   lea    (%rdx,%rdx,2),%rax
+    0.64 :   4b18:   lea    (%rdi,%rax,8),%rcx
+         : 99   if (a.price != b.price)
+    0.00 :   4b1c:   cmp    0x10(%rcx),%r9
+    0.00 :   4b20:   jne    4ad8 <insertOrder(Order const&)+0x78>
+         : 102  return a.order_id > b.order_id;
+    1.27 :   4b22:   cmp    (%rcx),%r10d
+    1.27 :   4b25:   setl   %r8b
+    0.00 :   4b29:   jmp    4adc <insertOrder(Order const&)+0x7c>
+    0.00 :   4b2b:   nopl   0x0(%rax,%rax,1)
+    0.00 :   4b30:   mov    %rcx,%rax
+         : 108  *(__first + __holeIndex) = _GLIBCXX_MOVE(__value);
+    5.73 :   4b33:   mov    %r10d,(%rax)
+   16.56 :   4b36:   mov    %r11,0x4(%rax)
+    0.64 :   4b3a:   mov    %r9,0x10(%rax)
+         : 112  bids.push(order);
+         : 113  else
+         : 114  asks.push(order);
+         : 115  }
+    0.00 :   4b3e:   add    $0x8,%rsp
+    0.00 :   4b42:   ret
+    0.00 :   4b43:   nopl   0x0(%rax,%rax,1)
+    0.00 :   4b48:   lea    0x5891(%rip),%rdi        # a3e0 <bids>
+    0.00 :   4b4f:   call   6ef0 <std::vector<Order, std::allocator<Order> >::push_back(Order const&)>
+         : 121  : _M_current(__i) { }
+    0.00 :   4b54:   mov    0x588d(%rip),%rax        # a3e8 <bids+0x8>
+    0.00 :   4b5b:   mov    0x587e(%rip),%rdi        # a3e0 <bids>
+         : 124  _ValueType __value = _GLIBCXX_MOVE(*(__last - 1));
+    0.00 :   4b62:   mov    -0x18(%rax),%r9d
+    0.00 :   4b66:   mov    -0x14(%rax),%r10
+    0.00 :   4b6a:   mov    -0x8(%rax),%r8
+         : 128  { return __lhs.base() - __rhs.base(); }
+    0.00 :   4b6e:   sub    %rdi,%rax
+    0.00 :   4b71:   mov    %rax,%rdx
+    0.00 :   4b74:   mov    %rax,%rsi
+    0.00 :   4b77:   movabs $0xaaaaaaaaaaaaaaab,%rax
+    0.00 :   4b81:   sar    $0x3,%rdx
+    0.00 :   4b85:   imul   %rax,%rdx
+         : 135  std::__push_heap(__first, _DistanceType((__last - __first) - 1),
+    0.00 :   4b89:   lea    -0x1(%rdx),%rax
+         : 137  _Distance __parent = (__holeIndex - 1) / 2;
+    0.00 :   4b8d:   sub    $0x2,%rdx
+    0.00 :   4b91:   mov    %rdx,%rcx
+    0.00 :   4b94:   shr    $0x3f,%rcx
+    0.00 :   4b98:   add    %rdx,%rcx
+    0.00 :   4b9b:   sar    $1,%rcx
+         : 143  while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    0.00 :   4b9e:   test   %rax,%rax
+    0.00 :   4ba1:   jg     4be5 <insertOrder(Order const&)+0x185>
+    0.00 :   4ba3:   jmp    4c1d <insertOrder(Order const&)+0x1bd>
+    0.00 :   4ba5:   nopl   (%rax)
+         : 148  return a.price < b.price;
+    0.00 :   4ba8:   setb   %dl
+         : 150  { return __normal_iterator(_M_current + __n); }
+    0.00 :   4bab:   lea    (%rax,%rax,2),%rax
+    0.00 :   4baf:   lea    (%rdi,%rax,8),%rax
+    0.00 :   4bb3:   test   %dl,%dl
+    0.00 :   4bb5:   je     4c03 <insertOrder(Order const&)+0x1a3>
+         : 155  *(__first + __holeIndex) = _GLIBCXX_MOVE(*(__first + __parent));
+    0.00 :   4bb7:   movdqu (%rsi),%xmm1
+    0.00 :   4bbb:   movups %xmm1,(%rax)
+    0.00 :   4bbe:   mov    0x10(%rsi),%rdx
+    0.00 :   4bc2:   mov    %rdx,0x10(%rax)
+         : 160  __parent = (__holeIndex - 1) / 2;
+    0.00 :   4bc6:   lea    -0x1(%rcx),%rdx
+    0.00 :   4bca:   mov    %rdx,%rax
+    0.00 :   4bcd:   shr    $0x3f,%rax
+    0.00 :   4bd1:   add    %rdx,%rax
+    0.00 :   4bd4:   sar    $1,%rax
+    0.00 :   4bd7:   mov    %rax,%rdx
+         : 167  while (__holeIndex > __topIndex && __comp(__first + __parent, __value))
+    0.00 :   4bda:   mov    %rcx,%rax
+    0.00 :   4bdd:   test   %rcx,%rcx
+    0.00 :   4be0:   je     4c00 <insertOrder(Order const&)+0x1a0>
+    0.00 :   4be2:   mov    %rdx,%rcx
+    0.00 :   4be5:   lea    (%rcx,%rcx,2),%rdx
+    0.00 :   4be9:   lea    (%rdi,%rdx,8),%rsi
+         : 174  if (a.price != b.price)
+    0.00 :   4bed:   cmp    %r8,0x10(%rsi)
+    0.00 :   4bf1:   jne    4ba8 <insertOrder(Order const&)+0x148>
+         : 177  return a.order_id > b.order_id;
+    0.00 :   4bf3:   cmp    %r9d,(%rsi)
+    0.00 :   4bf6:   setg   %dl
+    0.00 :   4bf9:   jmp    4bab <insertOrder(Order const&)+0x14b>
+    0.00 :   4bfb:   nopl   0x0(%rax,%rax,1)
+    0.00 :   4c00:   mov    %rsi,%rax
+         : 183  *(__first + __holeIndex) = _GLIBCXX_MOVE(__value);
+    0.00 :   4c03:   mov    %r9d,(%rax)
+    0.00 :   4c06:   mov    %r10,0x4(%rax)
+    0.00 :   4c0a:   mov    %r8,0x10(%rax)
+    0.00 :   4c0e:   add    $0x8,%rsp
+    0.00 :   4c12:   ret
+    0.00 :   4c13:   lea    -0x18(%rdi,%rcx,1),%rax
+    0.00 :   4c18:   jmp    4b33 <insertOrder(Order const&)+0xd3>
+    0.00 :   4c1d:   lea    -0x18(%rdi,%rsi,1),%rax
+    0.00 :   4c22:   jmp    4c03 <insertOrder(Order const&)+0x1a3>
