@@ -9,4 +9,6 @@ __pycache__
 !/README.md
 
 /.*/
+!/.github/
 code_review
+site/

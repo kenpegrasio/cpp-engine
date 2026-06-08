@@ -1,4 +1,8 @@
-# Benchmark Controls in Single-Threaded Matching Engine
+# Benchmark Controls
+
+Before analyzing latency and throughput, we need a reliable benchmarking methodology. Since low-level performance measurements are sensitive to noise from the operating system, CPU scheduling, frequency scaling, and background processes, I apply the following benchmark controls to make the results more stable and reproducible.
+
+The given `bench_controls/check_controls.sh` will help checking all these conditions before starting benchmark. 
 
 ## CPU Frequency Scaling Governor
 

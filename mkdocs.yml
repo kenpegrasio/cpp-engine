@@ -1,0 +1,37 @@
+site_name: "Matching Engine"
+site_description: "Single-threaded matching engine experiments: V1, V2, V3"
+site_author: "Jansen Ken Pegrasio"
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+    - search.highlight
+  palette:
+    scheme: slate
+    primary: teal
+    accent: cyan
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+# nav is intentionally omitted — MkDocs auto-discovers all .md files
+# under docs/ and builds navigation from the folder structure.
+# To define explicit ordering, add a nav: section here.
