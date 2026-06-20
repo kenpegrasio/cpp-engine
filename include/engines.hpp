@@ -7,6 +7,7 @@
 #include <span>
 #include <vector>
 #include <queue>
+#include <mutex>
 
 class EngineV1
 {
@@ -46,6 +47,20 @@ public:
     std::vector<Transaction> transactions;
     void receive(const Order &order);
     std::span<const Transaction> match();
+};
+
+class EngineV4
+{
+private:
+    std::map<unsigned long long, std::deque<Order>> bids;
+    std::map<unsigned long long, std::deque<Order>> asks;
+    std::mutex mtx;
+
+public:
+    std::vector<Log> logs;
+    void receive(const Order &order);
+    void match();
+    void process(const Order &order);
 };
 
 #endif

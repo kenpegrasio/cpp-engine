@@ -22,8 +22,8 @@ engine_v2: src/engine_v2_runner.cpp src/engine_v2.cpp
 engine_v3: src/engine_v3_runner.cpp src/engine_v3.cpp
 	$(CXX) $(COMMON_FLAGS) $(RELEASE_FLAGS) $^ -o $@
 
-engine_v4: src/engine_v4.cpp
-	$(CXX) $(COMMON_FLAGS) $(RELEASE_FLAGS) -pthread $< -o $@
+engine_v4: src/engine_v4_runner.cpp src/engine_v4.cpp
+	$(CXX) $(COMMON_FLAGS) $(RELEASE_FLAGS) -pthread $^ -o $@
 
 sanitize: engine_v1_asan engine_v2_asan engine_v3_asan engine_v4_asan
 
@@ -38,8 +38,8 @@ engine_v2_asan: src/engine_v2_runner.cpp src/engine_v2.cpp
 engine_v3_asan: src/engine_v3_runner.cpp src/engine_v3.cpp
 	$(CXX) $(COMMON_FLAGS) $(ASAN_UBSAN_FLAGS) $^ -o $@
 
-engine_v4_asan: src/engine_v4.cpp
-	$(CXX) $(COMMON_FLAGS) $(ASAN_UBSAN_FLAGS) -pthread $< -o $@
+engine_v4_asan: src/engine_v4_runner.cpp src/engine_v4.cpp
+	$(CXX) $(COMMON_FLAGS) $(ASAN_UBSAN_FLAGS) -pthread $^ -o $@
 
 engine_v1_tsan: src/engine_v1_runner.cpp src/engine_v1.cpp
 	$(CXX) $(COMMON_FLAGS) $(TSAN_FLAGS) $^ -o $@
@@ -50,8 +50,8 @@ engine_v2_tsan: src/engine_v2_runner.cpp src/engine_v2.cpp
 engine_v3_tsan: src/engine_v3_runner.cpp src/engine_v3.cpp
 	$(CXX) $(COMMON_FLAGS) $(TSAN_FLAGS) $^ -o $@
 
-engine_v4_tsan: src/engine_v4.cpp
-	$(CXX) $(COMMON_FLAGS) $(TSAN_FLAGS) -pthread $< -o $@
+engine_v4_tsan: src/engine_v4_runner.cpp src/engine_v4.cpp
+	$(CXX) $(COMMON_FLAGS) $(TSAN_FLAGS) -pthread $^ -o $@
 
 clean:
 	rm -f engine_v1 engine_v2 engine_v3 engine_v4 single_check multi_check
