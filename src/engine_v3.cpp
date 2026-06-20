@@ -1,16 +1,6 @@
-#include "benchmark.hpp"
-#include "types.hpp"
-#include "Parser.hpp"
+#include "engines.hpp"
 
-#include <map>
-#include <deque>
-
-std::map<unsigned long long, std::deque<Order>> bids;
-std::map<unsigned long long, std::deque<Order>> asks;
-
-std::vector<Transaction> transactions;
-
-void insertOrder(const Order &order)
+void EngineV3::receive(const Order &order)
 {
     if (order.order_side == OrderSide::Buy)
         bids[order.price].push_back(order);
@@ -18,8 +8,9 @@ void insertOrder(const Order &order)
         asks[order.price].push_back(order);
 }
 
-void matchOrders()
+std::span<const Transaction> EngineV3::match()
 {
+    const auto begin = transactions.size();
     auto highest_bid_entry = bids.rbegin();
     auto lowest_ask_entry = asks.begin();
     while (highest_bid_entry != bids.rend() && lowest_ask_entry != asks.end())
@@ -84,44 +75,5 @@ void matchOrders()
             }
         }
     }
-}
-
-int main(int argc, char **argv)
-{
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-
-    bool benchmark_mode = false;
-    for (int i = 1; i < argc; i++)
-    {
-        if (std::string(argv[i]) == "--benchmark")
-            benchmark_mode = true;
-    }
-
-    std::vector<Order> orders = parseOrders();
-    BenchmarkRunner benchmark(benchmark_mode);
-    benchmark.reserve(orders.size());
-
-    benchmark.startBatch();
-
-    for (const auto &order : orders)
-    {
-        const auto order_start = benchmark.startOperation();
-        insertOrder(order);
-        matchOrders();
-        benchmark.endOperation(order_start);
-    }
-
-    if (benchmark_mode)
-    {
-        const BenchmarkStats stats = benchmark.finishBatch();
-        benchmark.printStats(stats, transactions.size());
-        return EXIT_SUCCESS;
-    }
-
-    std::cout << transactions.size() << std::endl;
-    for (const auto &transaction : transactions)
-    {
-        std::cout << transaction.count << " " << transaction.buy_order_id << " " << transaction.sell_order_id << std::endl;
-    }
+    return std::span<const Transaction>(transactions.data() + begin, transactions.size() - begin);
 }

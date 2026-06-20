@@ -1,6 +1,6 @@
 #include "benchmark.hpp"
 #include "types.hpp"
-#include "Parser.hpp"
+#include "parser.hpp"
 
 #include <cstdlib>
 #include <iostream>

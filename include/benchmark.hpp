@@ -95,6 +95,17 @@ public:
         batch_start_ = Clock::now();
     }
 
+    // Stamp the end of the measured span without computing stats. Mirror of
+    // startBatch(). Use this when the span boundary is owned by an external
+    // rendezvous (e.g. a barrier completion fires stopBatch() the instant all
+    // workers finish matching), so the wall-clock excludes the post-loop merge.
+    void stopBatch()
+    {
+        if (!enabled_)
+            return;
+        batch_end_ = Clock::now();
+    }
+
     __attribute__((always_inline)) inline OpStart startOperation() const
     {
         OpStart s{};
@@ -130,6 +141,33 @@ public:
         if (enabled_)
             batch_end_ = Clock::now();
         return computeStats();
+    }
+
+    // Compute stats over whatever samples + span this runner currently holds,
+    // WITHOUT re-stamping batch_end_. Use after the span has been set by
+    // startBatch()/stopBatch() (or by merging) instead of finishBatch(), which
+    // would overwrite batch_end_ with "now" and fold the merge into the span.
+    BenchmarkStats stats() const { return computeStats(); }
+
+    // Fold another runner's per-order samples into this one. Access control is
+    // per-class, so this member may read `other`'s private buffers directly.
+    //
+    // Intentionally does NOT touch batch_start_/batch_end_: the wall-clock span
+    // is owned by the aggregator (stamped via startBatch()/stopBatch()), not
+    // derived from the per-thread runners. Only the latency (and perf-counter)
+    // sample vectors are concatenated. Caller serializes concurrent merges.
+    void merge(const BenchmarkRunner &other)
+    {
+        latencies_ns_.insert(latencies_ns_.end(),
+                             other.latencies_ns_.begin(),
+                             other.latencies_ns_.end());
+
+        if (counter_samples_.size() < other.counter_samples_.size())
+            counter_samples_.resize(other.counter_samples_.size());
+        for (std::size_t i = 0; i < other.counter_samples_.size(); ++i)
+            counter_samples_[i].insert(counter_samples_[i].end(),
+                                       other.counter_samples_[i].begin(),
+                                       other.counter_samples_[i].end());
     }
 
     void printStats(const BenchmarkStats &stats,

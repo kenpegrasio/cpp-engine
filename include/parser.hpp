@@ -7,10 +7,10 @@
 #include <vector>
 #include <memory>
 
-inline std::vector<Order> parseOrders()
+inline std::vector<Order> parseOrders(std::istream &in = std::cin)
 {
     int number_of_orders;
-    std::cin >> number_of_orders;
+    in >> number_of_orders;
     std::vector<Order> orders(number_of_orders);
     for (int i = 0; i < number_of_orders; i++)
     {
@@ -18,7 +18,7 @@ inline std::vector<Order> parseOrders()
         char order_type;
         unsigned int count;
         unsigned long long price;
-        std::cin >> seq_id >> order_type >> count >> price;
+        in >> seq_id >> order_type >> count >> price;
         if (order_type == 'B')
         {
             orders[i] = Order(seq_id, OrderSide::Buy, count, price);

@@ -24,6 +24,7 @@ struct Order
           price{new_price} {}
 };
 
+// Only used in single-threaded, order_id is used to describe the order arrival time
 struct BidComparator
 {
     // When bidding, higher prices will win. If same price, prioritize the first who bid
@@ -35,6 +36,7 @@ struct BidComparator
     }
 };
 
+// Only used in single-threaded, order_id is used to describe the order arrival time
 struct BidPointerComparator
 {
     bool operator()(const Order *a, const Order *b) const
@@ -45,6 +47,7 @@ struct BidPointerComparator
     }
 };
 
+// Only used in single-threaded, order_id is used to describe the order arrival time
 struct AskComparator
 {
     // When asking, lower prices will win. If same price, prioritize the first who ask
@@ -56,6 +59,7 @@ struct AskComparator
     }
 };
 
+// Only used in single-threaded, order_id is used to describe the order arrival time
 struct AskPointerComparator
 {
     bool operator()(const Order *a, const Order *b) const
@@ -66,6 +70,7 @@ struct AskPointerComparator
     }
 };
 
+// For checking single-thread
 struct Transaction
 {
     int buy_order_id;
@@ -78,6 +83,30 @@ struct Transaction
         : buy_order_id{new_buy_order_id},
           sell_order_id{new_sell_order_id},
           count{new_count} {}
+};
+
+// For checking multi-thread
+enum LogType
+{
+    Receive,
+    Match
+};
+
+struct Log
+{
+    LogType log_type;
+    // For Receive
+    Order order;
+    // For Match
+    Transaction transaction;
+
+    Log(LogType new_log_type, const Order &new_order)
+        : log_type{new_log_type},
+          order{new_order} {}
+
+    Log(LogType new_log_type, const Transaction &new_transaction)
+        : log_type{new_log_type},
+          transaction{new_transaction} {}
 };
 
 #endif
