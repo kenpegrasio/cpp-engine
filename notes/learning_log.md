@@ -46,3 +46,24 @@ Use `-fno-omit-frame-pointer` to improve stack traces.
 >    grows: available %map pointers, if any, will be on the ends.  As
 >    new nodes are created, only a subset of the %map's pointers need
 >    to be copied @a outward.
+
+## 4
+
+To update C++ Intellisense to syntax check according to the correct version:
+1. Press Ctrl + Shift + P (or Cmd + Shift + P on Mac) to open the Command Palette.
+2. Type and select C/C++: Edit Configurations (UI).
+3. Scroll down to the C++ Standard dropdown field.
+4. Select your desired version (e.g., c++20, c++23).
+
+## 5
+
+You cannot call `resize` in `std::vector<std::mutex>`. From the cppreference for `resize`, the following type requirements are stated:
+
+> T must meet the requirements of MoveInsertable and DefaultInsertable in order to use overload (`void resize( size_type count );`).  
+> T must meet the requirements of CopyInsertable in order to use overload (`void resize( size_type count, const value_type& value );`). 
+
+Well, next question is that what is MoveInsertable?
+
+> If std::allocator<T> or a similar allocator is used, a class does not have to implement a move constructor to satisfy this type requirement: a copy constructor that takes a const T& argument can bind rvalue expressions. If a MoveInsertable class implements a move constructor, it may also implement move semantics to take advantage of the fact that the value of rv after construction is unspecified. 
+
+Basically, in short, the object must have either move constructor or copy constructor. However, the documentation for `std::mutex` itself states that it is neither copyable nor movable. That is why you cannot call `resize` in `std::vector<std::mutex>`. 

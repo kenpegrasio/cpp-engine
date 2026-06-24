@@ -13,5 +13,6 @@
 */
 
 const int NUMBER_OF_PHYSICAL_P_CORES = 6;
+const int MAX_PRICE = 200;
 
 #endif

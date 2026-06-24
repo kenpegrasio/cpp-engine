@@ -2,12 +2,19 @@
 #define ENGINES_HPP
 
 #include "types.hpp"
+#include "constants.hpp"
+
 #include <deque>
 #include <map>
 #include <span>
 #include <vector>
 #include <queue>
 #include <mutex>
+#include <unordered_map>
+#include <shared_mutex>
+#include <atomic>
+#include <span>
+#include <array>
 
 class EngineV1
 {
@@ -60,6 +67,25 @@ public:
     std::vector<Log> logs;
     void receive(const Order &order);
     void match();
+    void process(const Order &order);
+};
+
+class EngineV5
+{
+private:
+    std::array<std::deque<Order>, MAX_PRICE + 1> bids;
+    std::array<std::deque<Order>, MAX_PRICE + 1> asks;
+    std::array<std::mutex, MAX_PRICE + 1> bids_mutex;
+    std::array<std::mutex, MAX_PRICE + 1> asks_mutex;
+    std::mutex matching_mutex, logs_mutex;
+    std::shared_mutex top_bids_mutex, lowest_asks_mutex;
+    int top_bids{0}, lowest_asks{MAX_PRICE + 1};
+    std::atomic<int> interior_insert{0};
+    std::atomic<bool> is_matching{false};
+    void match();
+
+public:
+    std::vector<Log> logs;
     void process(const Order &order);
 };
 
