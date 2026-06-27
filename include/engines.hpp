@@ -89,4 +89,17 @@ public:
     void process(const Order &order);
 };
 
+class EngineV5S
+{
+private:
+    std::array<std::deque<Order>, MAX_PRICE + 1> bids;
+    std::array<std::deque<Order>, MAX_PRICE + 1> asks;
+    int top_bids{0}, lowest_asks{MAX_PRICE + 1};
+
+public:
+    std::vector<Transaction> transactions;
+    void receive(const Order &order);
+    void match();
+};
+
 #endif
