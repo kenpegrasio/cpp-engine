@@ -63,7 +63,7 @@ powercfg /setdcvalueindex scheme_current sub_processor PERFBOOSTMODE 0
 powercfg /setactive scheme_current
 ```
 
-## Kernel-level Load Balancing
+## Process Pinning
 
 Inside the operating system scheduler, the kernel may also perform processes migration from one core to another, i.e., load balancing. When this happen during benchmarking, this may introduce unwanted variances. 
 

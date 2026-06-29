@@ -1,6 +1,6 @@
 # Engines
 
-This write-up analyzes three single-threaded matching engine designs. Each design uses a different internal representation for the bid and ask books, which allows us to study how data structure choices affect throughput, median latency, tail latency, and microarchitectural behavior.
+In this phase, three single-shard single-threaded matching engine designs will be analyzed. Each design uses a different internal representation for the bid and ask books, which allows us to study how data structure choices affect throughput, median latency, tail latency, and microarchitectural behavior.
 
 The three implementations are:
 
