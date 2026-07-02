@@ -1,27 +1,6 @@
 #include "engines.hpp"
 #include "constants.hpp"
 
-/*
-class EngineV5
-{
-private:
-    std::array<std::deque<Order>, MAX_PRICE + 1> bids;
-    std::array<std::deque<Order>, MAX_PRICE + 1> asks;
-    std::array<std::mutex, MAX_PRICE + 1> bids_mutex;
-    std::array<std::mutex, MAX_PRICE + 1> asks_mutex;
-    std::mutex matching_mutex;
-    std::shared_mutex top_bids_mutex, lowest_asks_mutex;
-    int top_bids{-1}, lowest_asks{MAX_PRICE + 1};
-    std::atomic<int> interior_insert{0};
-    std::atomic<bool> is_matching{false};
-    void match();
-
-public:
-    std::vector<Log> logs;
-    void process(const Order &order);
-};
-*/
-
 void EngineV5::match()
 {
     if (top_bids < lowest_asks)
