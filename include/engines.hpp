@@ -80,7 +80,6 @@ private:
     std::mutex matching_mutex, logs_mutex;
     std::shared_mutex top_bids_mutex, lowest_asks_mutex;
     int top_bids{0}, lowest_asks{MAX_PRICE + 1};
-    std::atomic<int> interior_insert{0};
     std::atomic<bool> is_matching{false};
     void match();
 

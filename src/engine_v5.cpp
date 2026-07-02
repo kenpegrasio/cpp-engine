@@ -27,8 +27,6 @@ void EngineV5::match()
     if (top_bids < lowest_asks)
         return;
     is_matching.store(true, std::memory_order_seq_cst);
-    while (interior_insert.load(std::memory_order_seq_cst) != 0)
-        ;
     // Matching logic
     while (top_bids >= lowest_asks)
     {
@@ -98,14 +96,12 @@ void EngineV5::process(const Order &order)
             std::shared_lock<std::shared_mutex> read_lock{lowest_asks_mutex};
             if (lowest_asks <= order.price)
             {
-                interior_insert.fetch_add(1, std::memory_order_seq_cst);
                 std::lock_guard<std::mutex> fine_grained_lock{asks_mutex[order.price]};
                 {
                     std::lock_guard<std::mutex> logs_lock{logs_mutex};
                     logs.push_back(Log(LogType::Receive, order));
                 }
                 asks[order.price].push_back(order);
-                interior_insert.fetch_sub(1, std::memory_order_seq_cst);
                 break;
             }
         }
@@ -131,14 +127,12 @@ void EngineV5::process(const Order &order)
             std::shared_lock<std::shared_mutex> read_lock{top_bids_mutex};
             if (top_bids >= order.price)
             {
-                interior_insert.fetch_add(1, std::memory_order_seq_cst);
                 std::lock_guard<std::mutex> fine_grained_lock{bids_mutex[order.price]};
                 {
                     std::lock_guard<std::mutex> logs_lock{logs_mutex};
                     logs.push_back(Log(LogType::Receive, order));
                 }
                 bids[order.price].push_back(order);
-                interior_insert.fetch_sub(1, std::memory_order_seq_cst);
                 break;
             }
         }
