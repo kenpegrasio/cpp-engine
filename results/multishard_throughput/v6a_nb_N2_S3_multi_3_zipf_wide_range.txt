@@ -1,0 +1,454 @@
+Push stats:
+elapsed_ms=808.270
+operations_per_sec=1237209.619
+avg_latency_ns=1552.845
+min_latency_ns=93
+p50_latency_ns=1158
+p95_latency_ns=4450
+p99_latency_ns=9498
+p99_9_latency_ns=16199
+max_latency_ns=228666
+transactions=777389
+Queue stats:
+elapsed_ms=808.271
+operations_per_sec=1237208.161
+avg_latency_ns=5125.688
+min_latency_ns=290
+p50_latency_ns=3205
+p95_latency_ns=13805
+p99_latency_ns=21383
+p99_9_latency_ns=51722
+max_latency_ns=243094
+transactions=777389
+Match stats:
+elapsed_ms=808.270
+operations_per_sec=1237208.342
+avg_latency_ns=130.660
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=267
+p99_latency_ns=399
+p99_9_latency_ns=3820
+max_latency_ns=210148
+transactions=777389
+Total stats:
+elapsed_ms=808.270
+operations_per_sec=1237208.360
+avg_latency_ns=5256.349
+min_latency_ns=393
+p50_latency_ns=3346
+p95_latency_ns=13946
+p99_latency_ns=21531
+p99_9_latency_ns=51932
+max_latency_ns=243245
+transactions=777389
+---
+Push stats:
+elapsed_ms=773.509
+operations_per_sec=1292809.207
+avg_latency_ns=1495.715
+min_latency_ns=93
+p50_latency_ns=1158
+p95_latency_ns=4207
+p99_latency_ns=8984
+p99_9_latency_ns=15293
+max_latency_ns=263523
+transactions=777666
+Queue stats:
+elapsed_ms=773.509
+operations_per_sec=1292807.686
+avg_latency_ns=5551.563
+min_latency_ns=289
+p50_latency_ns=3213
+p95_latency_ns=15668
+p99_latency_ns=25678
+p99_9_latency_ns=69239
+max_latency_ns=396420
+transactions=777666
+Match stats:
+elapsed_ms=773.509
+operations_per_sec=1292807.899
+avg_latency_ns=130.211
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=265
+p99_latency_ns=396
+p99_9_latency_ns=3757
+max_latency_ns=343921
+transactions=777666
+Total stats:
+elapsed_ms=773.509
+operations_per_sec=1292807.914
+avg_latency_ns=5681.774
+min_latency_ns=373
+p50_latency_ns=3356
+p95_latency_ns=15809
+p99_latency_ns=25825
+p99_9_latency_ns=69493
+max_latency_ns=396622
+transactions=777666
+---
+Push stats:
+elapsed_ms=840.477
+operations_per_sec=1189800.908
+avg_latency_ns=1614.191
+min_latency_ns=93
+p50_latency_ns=1197
+p95_latency_ns=6510
+p99_latency_ns=9430
+p99_9_latency_ns=16114
+max_latency_ns=415588
+transactions=778082
+Queue stats:
+elapsed_ms=840.477
+operations_per_sec=1189800.632
+avg_latency_ns=4190.315
+min_latency_ns=289
+p50_latency_ns=2614
+p95_latency_ns=11180
+p99_latency_ns=17275
+p99_9_latency_ns=37365
+max_latency_ns=481944
+transactions=778082
+Match stats:
+elapsed_ms=840.477
+operations_per_sec=1189800.831
+avg_latency_ns=130.468
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=267
+p99_latency_ns=399
+p99_9_latency_ns=3715
+max_latency_ns=171096
+transactions=778082
+Total stats:
+elapsed_ms=840.477
+operations_per_sec=1189800.889
+avg_latency_ns=4320.783
+min_latency_ns=358
+p50_latency_ns=2745
+p95_latency_ns=11330
+p99_latency_ns=17421
+p99_9_latency_ns=37629
+max_latency_ns=482157
+transactions=778082
+---
+Push stats:
+elapsed_ms=872.561
+operations_per_sec=1146051.681
+avg_latency_ns=1612.980
+min_latency_ns=93
+p50_latency_ns=1218
+p95_latency_ns=4640
+p99_latency_ns=9371
+p99_9_latency_ns=15669
+max_latency_ns=530853
+transactions=777772
+Queue stats:
+elapsed_ms=872.561
+operations_per_sec=1146051.480
+avg_latency_ns=4794.074
+min_latency_ns=323
+p50_latency_ns=2919
+p95_latency_ns=12537
+p99_latency_ns=19234
+p99_9_latency_ns=59833
+max_latency_ns=679421
+transactions=777772
+Match stats:
+elapsed_ms=872.561
+operations_per_sec=1146051.641
+avg_latency_ns=130.714
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=267
+p99_latency_ns=398
+p99_9_latency_ns=3758
+max_latency_ns=186155
+transactions=777772
+Total stats:
+elapsed_ms=872.561
+operations_per_sec=1146051.660
+avg_latency_ns=4924.788
+min_latency_ns=404
+p50_latency_ns=3051
+p95_latency_ns=12687
+p99_latency_ns=19385
+p99_9_latency_ns=60206
+max_latency_ns=679470
+transactions=777772
+---
+Push stats:
+elapsed_ms=611.317
+operations_per_sec=1635811.636
+avg_latency_ns=1162.719
+min_latency_ns=94
+p50_latency_ns=969
+p95_latency_ns=3303
+p99_latency_ns=8230
+p99_9_latency_ns=13193
+max_latency_ns=149978
+transactions=777821
+Queue stats:
+elapsed_ms=611.317
+operations_per_sec=1635809.596
+avg_latency_ns=4657.541
+min_latency_ns=244
+p50_latency_ns=2610
+p95_latency_ns=13385
+p99_latency_ns=21352
+p99_9_latency_ns=55952
+max_latency_ns=369265
+transactions=777821
+Match stats:
+elapsed_ms=611.317
+operations_per_sec=1635809.914
+avg_latency_ns=130.793
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=265
+p99_latency_ns=396
+p99_9_latency_ns=3727
+max_latency_ns=370762
+transactions=777821
+Total stats:
+elapsed_ms=611.317
+operations_per_sec=1635809.949
+avg_latency_ns=4788.334
+min_latency_ns=299
+p50_latency_ns=2748
+p95_latency_ns=13520
+p99_latency_ns=21498
+p99_9_latency_ns=56455
+max_latency_ns=372181
+transactions=777821
+---
+Push stats:
+elapsed_ms=598.445
+operations_per_sec=1670996.980
+avg_latency_ns=1147.605
+min_latency_ns=95
+p50_latency_ns=983
+p95_latency_ns=3132
+p99_latency_ns=7925
+p99_9_latency_ns=12628
+max_latency_ns=101740
+transactions=777552
+Queue stats:
+elapsed_ms=598.445
+operations_per_sec=1670994.968
+avg_latency_ns=5075.116
+min_latency_ns=246
+p50_latency_ns=2700
+p95_latency_ns=15835
+p99_latency_ns=25863
+p99_9_latency_ns=46364
+max_latency_ns=127237
+transactions=777552
+Match stats:
+elapsed_ms=598.445
+operations_per_sec=1670995.290
+avg_latency_ns=128.486
+min_latency_ns=37
+p50_latency_ns=73
+p95_latency_ns=262
+p99_latency_ns=390
+p99_9_latency_ns=3740
+max_latency_ns=46098
+transactions=777552
+Total stats:
+elapsed_ms=598.445
+operations_per_sec=1670995.306
+avg_latency_ns=5203.601
+min_latency_ns=308
+p50_latency_ns=2838
+p95_latency_ns=15975
+p99_latency_ns=25988
+p99_9_latency_ns=46500
+max_latency_ns=127341
+transactions=777552
+---
+Push stats:
+elapsed_ms=633.054
+operations_per_sec=1579644.906
+avg_latency_ns=1196.084
+min_latency_ns=95
+p50_latency_ns=971
+p95_latency_ns=3367
+p99_latency_ns=8216
+p99_9_latency_ns=13199
+max_latency_ns=147339
+transactions=777264
+Queue stats:
+elapsed_ms=633.054
+operations_per_sec=1579643.668
+avg_latency_ns=4985.097
+min_latency_ns=252
+p50_latency_ns=2326
+p95_latency_ns=14072
+p99_latency_ns=25551
+p99_9_latency_ns=256466
+max_latency_ns=379658
+transactions=777264
+Match stats:
+elapsed_ms=633.054
+operations_per_sec=1579643.249
+avg_latency_ns=130.256
+min_latency_ns=36
+p50_latency_ns=74
+p95_latency_ns=264
+p99_latency_ns=395
+p99_9_latency_ns=3787
+max_latency_ns=363775
+transactions=777264
+Total stats:
+elapsed_ms=633.054
+operations_per_sec=1579643.298
+avg_latency_ns=5115.353
+min_latency_ns=320
+p50_latency_ns=2466
+p95_latency_ns=14205
+p99_latency_ns=25692
+p99_9_latency_ns=256738
+max_latency_ns=379720
+transactions=777264
+---
+Push stats:
+elapsed_ms=606.886
+operations_per_sec=1647754.832
+avg_latency_ns=1168.621
+min_latency_ns=95
+p50_latency_ns=981
+p95_latency_ns=3314
+p99_latency_ns=8220
+p99_9_latency_ns=13007
+max_latency_ns=250799
+transactions=777912
+Queue stats:
+elapsed_ms=606.887
+operations_per_sec=1647754.322
+avg_latency_ns=4190.282
+min_latency_ns=237
+p50_latency_ns=2430
+p95_latency_ns=11546
+p99_latency_ns=18155
+p99_9_latency_ns=60935
+max_latency_ns=341269
+transactions=777912
+Match stats:
+elapsed_ms=606.886
+operations_per_sec=1647754.754
+avg_latency_ns=129.197
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=264
+p99_latency_ns=396
+p99_9_latency_ns=3717
+max_latency_ns=95136
+transactions=777912
+Total stats:
+elapsed_ms=606.886
+operations_per_sec=1647754.800
+avg_latency_ns=4319.478
+min_latency_ns=299
+p50_latency_ns=2565
+p95_latency_ns=11697
+p99_latency_ns=18299
+p99_9_latency_ns=61072
+max_latency_ns=341423
+transactions=777912
+---
+Push stats:
+elapsed_ms=801.844
+operations_per_sec=1247126.046
+avg_latency_ns=1511.502
+min_latency_ns=93
+p50_latency_ns=1169
+p95_latency_ns=4146
+p99_latency_ns=9211
+p99_9_latency_ns=15977
+max_latency_ns=207769
+transactions=777559
+Queue stats:
+elapsed_ms=801.844
+operations_per_sec=1247125.804
+avg_latency_ns=4699.395
+min_latency_ns=336
+p50_latency_ns=2958
+p95_latency_ns=12879
+p99_latency_ns=19506
+p99_9_latency_ns=36914
+max_latency_ns=241742
+transactions=777559
+Match stats:
+elapsed_ms=801.844
+operations_per_sec=1247125.998
+avg_latency_ns=129.943
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=266
+p99_latency_ns=397
+p99_9_latency_ns=3750
+max_latency_ns=77776
+transactions=777559
+Total stats:
+elapsed_ms=801.844
+operations_per_sec=1247126.026
+avg_latency_ns=4829.338
+min_latency_ns=386
+p50_latency_ns=3094
+p95_latency_ns=13026
+p99_latency_ns=19655
+p99_9_latency_ns=37124
+max_latency_ns=241799
+transactions=777559
+---
+Push stats:
+elapsed_ms=695.797
+operations_per_sec=1437200.183
+avg_latency_ns=1315.871
+min_latency_ns=94
+p50_latency_ns=1012
+p95_latency_ns=3787
+p99_latency_ns=8641
+p99_9_latency_ns=14400
+max_latency_ns=210372
+transactions=777788
+[bench] raw per-order samples dumped to results/multishard_throughput/v6a_nb_N2_S3_multi_3_zipf_wide_range.lat.push.csv
+Queue stats:
+elapsed_ms=695.797
+operations_per_sec=1437200.530
+avg_latency_ns=4560.263
+min_latency_ns=310
+p50_latency_ns=2315
+p95_latency_ns=11320
+p99_latency_ns=19362
+p99_9_latency_ns=291253
+max_latency_ns=428953
+transactions=777788
+[bench] raw per-order samples dumped to results/multishard_throughput/v6a_nb_N2_S3_multi_3_zipf_wide_range.lat.queue.csv
+Match stats:
+elapsed_ms=695.797
+operations_per_sec=1437200.117
+avg_latency_ns=131.216
+min_latency_ns=37
+p50_latency_ns=74
+p95_latency_ns=267
+p99_latency_ns=400
+p99_9_latency_ns=3791
+max_latency_ns=425533
+transactions=777788
+[bench] raw per-order samples dumped to results/multishard_throughput/v6a_nb_N2_S3_multi_3_zipf_wide_range.lat.match.csv
+Total stats:
+elapsed_ms=695.797
+operations_per_sec=1437200.155
+avg_latency_ns=4691.479
+min_latency_ns=363
+p50_latency_ns=2448
+p95_latency_ns=11475
+p99_latency_ns=19506
+p99_9_latency_ns=291673
+max_latency_ns=429018
+transactions=777788
+[bench] raw per-order samples dumped to results/multishard_throughput/v6a_nb_N2_S3_multi_3_zipf_wide_range.lat.total.csv
+---

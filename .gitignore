@@ -6,6 +6,10 @@ engine_v5
 engine_v5s
 single_check
 multi_check
+engine_v6a
+engine_v6a_nb
+engine_v6a_static
+engine_v6b
 
 __pycache__
 
@@ -16,3 +20,6 @@ __pycache__
 !/.github/
 code_review
 site/
+
+tests/generated
+tests/generated_shards

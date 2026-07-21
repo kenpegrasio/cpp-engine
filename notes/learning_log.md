@@ -67,3 +67,90 @@ Well, next question is that what is MoveInsertable?
 > If std::allocator<T> or a similar allocator is used, a class does not have to implement a move constructor to satisfy this type requirement: a copy constructor that takes a const T& argument can bind rvalue expressions. If a MoveInsertable class implements a move constructor, it may also implement move semantics to take advantage of the fact that the value of rv after construction is unspecified. 
 
 Basically, in short, the object must have either move constructor or copy constructor. However, the documentation for `std::mutex` itself states that it is neither copyable nor movable. That is why you cannot call `resize` in `std::vector<std::mutex>`. 
+
+## 6
+
+`perf_event_paranoid` gates the `perf_event_open()` syscall.
+
+A kernel tracepoint is a predefined, static hook embedded directly into operating system source code. When enabled, it captures exact system events. All tracing happens in the kernel. perf_event_open enables the tracing necessarily. 
+
+`/sys/kernel/tracing/events` is a phone book, where you will look up the id of the system events. By default, access to this folder is root only, so you to need to run the following command to give access:
+
+```bash
+sudo chmod -R o+r /sys/kernel/tracing/events
+```
+
+## 7 
+
+- No system call, i.e., `futex(FUTEX_WAIT)`, will be made when the `pred` in `cv.wait(lock, pred)` is true. 
+- No system call, i.e., `futex(FUTEX_WAKE)`, will be made when nobody is registered as a waiter
+
+
+## 8 
+
+```c++
+void push(const T &value)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    queue_.push(value);
+    cond_var_.notify_one();
+}
+```
+
+`mutex_` will be hold when `cond_var_.notify_one()` perform system calls. This will limit concurrency :) 
+
+## 9
+
+```bash
+for d in /sys/devices/system/cpu/cpu[0-9]*/cpufreq; do
+  c=$(basename "$(dirname "$d")")
+  printf "%-6s cur=%7.0f MHz  min=%5.0f  max=%5.0f  gov=%s\n" "$c" \
+    "$(( $(cat $d/scaling_cur_freq) / 1000 ))" \
+    "$(( $(cat $d/cpuinfo_min_freq) / 1000 ))" \
+    "$(( $(cat $d/cpuinfo_max_freq) / 1000 ))" \
+    "$(cat $d/scaling_governor)"
+done
+```
+
+```
+cpu0   cur=   1600 MHz  min=  400  max= 4700  gov=powersave
+cpu10  cur=    400 MHz  min=  400  max= 4700  gov=powersave
+cpu11  cur=    400 MHz  min=  400  max= 4700  gov=powersave
+cpu12  cur=   1300 MHz  min=  400  max= 3600  gov=powersave
+cpu13  cur=   1200 MHz  min=  400  max= 3600  gov=powersave
+cpu14  cur=   1399 MHz  min=  400  max= 3600  gov=powersave
+cpu15  cur=   1374 MHz  min=  400  max= 3600  gov=powersave
+cpu1   cur=   1288 MHz  min=  400  max= 4700  gov=powersave
+cpu2   cur=    475 MHz  min=  400  max= 4700  gov=powersave
+cpu3   cur=    809 MHz  min=  400  max= 4700  gov=powersave
+cpu4   cur=    400 MHz  min=  400  max= 4900  gov=powersave
+cpu5   cur=    400 MHz  min=  400  max= 4900  gov=powersave
+cpu6   cur=    400 MHz  min=  400  max= 4900  gov=powersave
+cpu7   cur=   1277 MHz  min=  400  max= 4900  gov=powersave
+cpu8   cur=   1343 MHz  min=  400  max= 4700  gov=powersave
+cpu9   cur=    755 MHz  min=  400  max= 4700  gov=powersave
+```
+
+## 10
+
+```bash
+mpstat -P ALL 2 1
+```
+
+## 11
+
+```bash
+perf stat -e cpu_core/l2_request.all/,cpu_core/l2_request.miss/   ./engine_v6b --benchmark --N 2 --shard 64 < tests/generated_shards/multi_64_uniform_wide_range.txt   > b64.txt 2>&1
+
+# cache-line ping-pong between cores — THE key metric
+perf stat -e cpu_core/ocr.demand_data_rd.l3_hit.snoop_hitm/,cpu_core/ocr.demand_rfo.l3_hit.snoop_hitm/ \
+  ./engine_v6b --benchmark --N 2 --shard 64 < tests/generated_shards/multi_64_uniform_wide_range.txt
+
+# L3 capacity / DRAM pressure (shows this is NOT the mechanism)
+perf stat -e cpu_core/longest_lat_cache.reference/,cpu_core/longest_lat_cache.miss/ ...
+
+# which specific cache lines and source lines are ping-ponging
+perf c2c record -- ./engine_v6b --benchmark --N 2 --shard 64 < tests/generated_shards/multi_64_uniform_wide_range.txt
+perf c2c report --stdio
+```
+

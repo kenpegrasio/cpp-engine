@@ -1,0 +1,121 @@
+Total stats:
+elapsed_ms=397.050
+operations_per_sec=2518576.288
+avg_latency_ns=752.687
+min_latency_ns=65
+p50_latency_ns=302
+p95_latency_ns=2405
+p99_latency_ns=7526
+p99_9_latency_ns=11119
+max_latency_ns=553966
+transactions=778279
+---
+Total stats:
+elapsed_ms=387.893
+operations_per_sec=2578032.307
+avg_latency_ns=733.353
+min_latency_ns=65
+p50_latency_ns=288
+p95_latency_ns=2562
+p99_latency_ns=7498
+p99_9_latency_ns=11581
+max_latency_ns=419981
+transactions=777983
+---
+Total stats:
+elapsed_ms=385.546
+operations_per_sec=2593724.272
+avg_latency_ns=730.689
+min_latency_ns=65
+p50_latency_ns=291
+p95_latency_ns=2375
+p99_latency_ns=7474
+p99_9_latency_ns=10938
+max_latency_ns=276703
+transactions=777653
+---
+Total stats:
+elapsed_ms=386.753
+operations_per_sec=2585629.936
+avg_latency_ns=729.607
+min_latency_ns=65
+p50_latency_ns=296
+p95_latency_ns=2332
+p99_latency_ns=7443
+p99_9_latency_ns=11300
+max_latency_ns=100500
+transactions=777561
+---
+Total stats:
+elapsed_ms=398.705
+operations_per_sec=2508122.668
+avg_latency_ns=754.620
+min_latency_ns=65
+p50_latency_ns=294
+p95_latency_ns=2618
+p99_latency_ns=7626
+p99_9_latency_ns=11669
+max_latency_ns=260085
+transactions=777499
+---
+Total stats:
+elapsed_ms=394.582
+operations_per_sec=2534326.843
+avg_latency_ns=748.641
+min_latency_ns=65
+p50_latency_ns=289
+p95_latency_ns=2831
+p99_latency_ns=7646
+p99_9_latency_ns=11913
+max_latency_ns=195457
+transactions=777958
+---
+Total stats:
+elapsed_ms=385.537
+operations_per_sec=2593785.365
+avg_latency_ns=728.232
+min_latency_ns=65
+p50_latency_ns=287
+p95_latency_ns=2444
+p99_latency_ns=7484
+p99_9_latency_ns=12030
+max_latency_ns=173789
+transactions=777789
+---
+Total stats:
+elapsed_ms=392.913
+operations_per_sec=2545090.069
+avg_latency_ns=742.711
+min_latency_ns=65
+p50_latency_ns=295
+p95_latency_ns=2236
+p99_latency_ns=7458
+p99_9_latency_ns=12117
+max_latency_ns=554135
+transactions=777641
+---
+Total stats:
+elapsed_ms=401.865
+operations_per_sec=2488399.244
+avg_latency_ns=762.503
+min_latency_ns=65
+p50_latency_ns=288
+p95_latency_ns=2954
+p99_latency_ns=7757
+p99_9_latency_ns=12435
+max_latency_ns=485978
+transactions=777647
+---
+Total stats:
+elapsed_ms=404.648
+operations_per_sec=2471285.290
+avg_latency_ns=768.218
+min_latency_ns=65
+p50_latency_ns=308
+p95_latency_ns=2449
+p99_latency_ns=7531
+p99_9_latency_ns=12861
+max_latency_ns=1299685
+transactions=777811
+[bench] raw per-order samples dumped to results/multishard_throughput/v6b_N2_S3_multi_3_uniform_wide_range.lat.total.csv
+---

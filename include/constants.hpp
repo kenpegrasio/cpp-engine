@@ -14,5 +14,17 @@
 
 const int NUMBER_OF_PHYSICAL_P_CORES = 6;
 const int MAX_PRICE = 200;
+// Compile-time cap on shards/instruments. Sizes std::array members in EngineV6A/_NB/V6B
+// (books, queues, per-book mutexes), so raising it costs memory whether or not the
+// shards are used: 16 books x sizeof(EngineV5S)=32KB ~ 504KB, and those engines are
+// STACK locals in the runners' main() (8MB default stack: 64 is fine at ~2MB,
+// 128 would be ~4MB, 256 would overflow).
+//
+// 64 exists for the Design A (V6B) scaling study: per-book locking is contention-bound
+// when threads outnumber books -- with T threads over B books the expected number of
+// distinct books in play is B*(1-(1-1/B)^T), so 4 threads over 4 books reach only 68%
+// parallel efficiency, while 4 over 64 reach 98%.
+// Testing V6B at B=3 measures its worst case, not its design point.
+const int MAX_SHARDS = 64;
 
 #endif

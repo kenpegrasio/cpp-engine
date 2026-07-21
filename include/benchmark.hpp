@@ -136,6 +136,13 @@ public:
             counter_samples_[i].push_back(end_counters[i] - start.counters[i]);
     }
 
+    __attribute__((always_inline)) inline void pushLatency(std::uint64_t latency_ns)
+    {
+        if (!enabled_)
+            return;
+        latencies_ns_.push_back(latency_ns);
+    }
+
     BenchmarkStats finishBatch()
     {
         if (enabled_)
@@ -170,9 +177,15 @@ public:
                                        other.counter_samples_[i].end());
     }
 
+    // dump_tag disambiguates the BENCH_PERF_DUMP file when one run calls
+    // printStats() more than once (V6A prints queue / match / total from three
+    // separate runners). Empty tag = write to $BENCH_PERF_DUMP verbatim, which
+    // is what every single-runner engine (V1-V5S) does, so their dumps are
+    // unchanged. See taggedDumpPath().
     void printStats(const BenchmarkStats &stats,
                     std::size_t event_count,
-                    const std::string &event_label = "transactions") const
+                    const std::string &event_label = "transactions",
+                    const std::string &dump_tag = "") const
     {
         std::cerr << std::fixed << std::setprecision(3);
         std::cerr << "elapsed_ms=" << stats.elapsed_ms << '\n';
@@ -189,7 +202,7 @@ public:
         for (std::size_t i = 0; i < perf_.event_count(); ++i)
             printCounterStats(perf_.name(i), counter_samples_[i]);
 
-        maybeDumpRawCsv();
+        maybeDumpRawCsv(dump_tag);
     }
 
 private:
@@ -265,13 +278,36 @@ private:
         return s;
     }
 
-    void maybeDumpRawCsv() const
+    // Insert `tag` before the final extension of `base`, so three runners in one
+    // process land in three files instead of truncating each other:
+    //     ("run.lat.csv",  "queue") -> "run.lat.queue.csv"
+    //     ("run",          "queue") -> "run.queue"          (no extension)
+    //     ("out.d/run",    "queue") -> "out.d/run.queue"    (dot is in the dir)
+    //     (anything,       ""     ) -> unchanged            (V1-V5S path)
+    static std::string taggedDumpPath(const std::string &base, const std::string &tag)
     {
-        const char *path = std::getenv("BENCH_PERF_DUMP");
-        if (!path || !*path || latencies_ns_.empty())
+        if (tag.empty())
+            return base;
+
+        const std::size_t slash = base.find_last_of('/');
+        const std::size_t dot = base.find_last_of('.');
+        const bool has_extension =
+            dot != std::string::npos && (slash == std::string::npos || dot > slash);
+
+        if (!has_extension)
+            return base + '.' + tag;
+        return base.substr(0, dot) + '.' + tag + base.substr(dot);
+    }
+
+    void maybeDumpRawCsv(const std::string &tag) const
+    {
+        const char *env = std::getenv("BENCH_PERF_DUMP");
+        if (!env || !*env || latencies_ns_.empty())
             return;
 
-        std::FILE *fp = std::fopen(path, "w");
+        const std::string path = taggedDumpPath(env, tag);
+
+        std::FILE *fp = std::fopen(path.c_str(), "w");
         if (!fp)
         {
             std::cerr << "[warn] BENCH_PERF_DUMP: cannot open " << path << '\n';

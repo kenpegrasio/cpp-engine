@@ -1,6 +1,8 @@
 #ifndef TYPES_HPP
 #define TYPES_HPP
 
+#include <chrono>
+
 enum OrderSide
 {
     Buy = 'B',
@@ -10,6 +12,7 @@ enum OrderSide
 struct Order
 {
     int order_id;
+    int shard_id;
     OrderSide order_side;
     unsigned int count;
     unsigned long long price;
@@ -22,6 +25,26 @@ struct Order
           order_side{new_order_type},
           count{new_count},
           price{new_price} {}
+
+    Order(int new_order_id, int new_shard_id, OrderSide new_order_type,
+          unsigned int new_count, unsigned long long new_price)
+        : order_id{new_order_id},
+          shard_id{new_shard_id},
+          order_side{new_order_type},
+          count{new_count},
+          price{new_price} {}
+};
+
+struct TimedOrder
+{
+    Order order;
+    std::chrono::steady_clock::time_point t_enqueue;
+
+    TimedOrder() {}
+
+    TimedOrder(const Order &new_order, const std::chrono::steady_clock::time_point &new_t_enqueue)
+        : order{new_order},
+          t_enqueue{new_t_enqueue} {}
 };
 
 // Only used in single-threaded, order_id is used to describe the order arrival time

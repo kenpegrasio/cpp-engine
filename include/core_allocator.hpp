@@ -14,13 +14,14 @@ private:
         The core_order array is designed to allocate threads to physical cores first before using hyperthread siblings, which can help
         improve performance by reducing contention for shared resources like L1/L2 cache.
     */
-    int core_order[2 * NUMBER_OF_PHYSICAL_P_CORES] = {0, 2, 4, 6, 8, 10, 1, 3, 5, 7, 9, 11};
+    static const int USABLE_CORES = 2 * (NUMBER_OF_PHYSICAL_P_CORES - 1);
+    int core_order[USABLE_CORES] = {2, 4, 6, 8, 10, 3, 5, 7, 9, 11};
 
 public:
     int allocate()
     {
         int idx = num_threads_allocated.fetch_add(1, std::memory_order_relaxed);
-        return core_order[idx % (2 * NUMBER_OF_PHYSICAL_P_CORES)];
+        return core_order[idx % USABLE_CORES];
     }
 };
 

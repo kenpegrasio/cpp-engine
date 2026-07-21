@@ -25,8 +25,9 @@
 #      script exits non-zero.
 #
 # Pinning:
-#   - v4/v5 self-pin one thread per physical P-core via CoreAllocator (0,2,4,…).
-#   - v3/v5s are pinned with `taskset -c <--cpu>` (default 0, matching the core
+#   - v4/v5 self-pin one thread per physical P-core via CoreAllocator (2,4,6,8,10 —
+#     cpu0 and its HT sibling cpu1 are excluded; see core_allocator.hpp).
+#   - v3/v5s are pinned with `taskset -c <--cpu>` (default 2 = core_order[0], the core
 #     that v4@1/v5@1 pin themselves to, so the differential v4@1-vs-v3 and
 #     v5@1-vs-v5s comparisons run on the same core).
 #
@@ -47,7 +48,13 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 # Defaults
 # ---------------------------------------------------------------------------
-THREAD_COUNTS=(1 2 4 6)     # v4/v5 thread sweep (per notes: P-cores only, max 6)
+THREAD_COUNTS=(1 2 4)       # v4/v5 thread sweep. CAPPED AT 4, not 6: core_allocator.hpp
+                            # now omits cpu0 (kernel/ACPI saturated it: ~97% %sys, a thread
+                            # pinned there ran 3x slower) and cpu1 (cpu0's hyperthread
+                            # sibling: 35% slower while still reporting 93% idle). That
+                            # leaves 5 clean physical P-cores {2,4,6,8,10}; at 6 threads one
+                            # would land on an HT sibling and share a physical core, which
+                            # reads as "scaling stopped" when it is really core contention.
 N_RUNS=10                   # benchmark reps per config × testcase (median ± IQR)
 N_WARMUP=0                  # discarded warmup runs. Default 0: back-to-back reps
                             # + median±IQR already absorb rep 1's cold-start
@@ -59,7 +66,10 @@ VERIFY=0                    # opt-in via --verify (or --verify-runs)
 N_VERIFY=""                 # verify reps for v4/v5 (default: same as N_RUNS)
 TEST_DIR="tests/generated"
 OUTPUT_DIR="results/multithread_bench"
-CPU_ID=0                    # taskset core for the single-threaded engines
+CPU_ID=2                    # taskset core for the single-threaded engines (NOT 0: cpu0
+                            # is saturated by kernel/ACPI work and cpu1 is its HT sibling;
+                            # must match core_order[0] in core_allocator.hpp so the
+                            # v4@1-vs-v3 differential compares like with like)
 DUMP_ALL=0
 SKIP_CONTROLS=0
 SKIP_VERIFY=0

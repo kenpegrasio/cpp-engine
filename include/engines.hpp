@@ -3,6 +3,9 @@
 
 #include "types.hpp"
 #include "constants.hpp"
+#include "mutex_queue.hpp"
+#include "nonblocking_mutex_queue.hpp"
+#include "benchmark.hpp"
 
 #include <deque>
 #include <map>
@@ -99,6 +102,63 @@ public:
     std::vector<Transaction> transactions;
     void receive(const Order &order);
     void match();
+};
+
+class EngineV6A
+{
+private:
+    std::array<MutexQueue<TimedOrder>, MAX_SHARDS> shard_queues;
+
+public:
+    std::array<EngineV5S, MAX_SHARDS> engines;
+    std::array<std::atomic<bool>, MAX_SHARDS> is_finish;
+    void route(const Order &order, BenchmarkRunner &benchmark_push);
+    void process(int shard_id, BenchmarkRunner &benchmark_queue, BenchmarkRunner &benchmark_match, BenchmarkRunner &benchmark_total);
+    void close_shard_queues()
+    {
+        for (int i = 0; i < MAX_SHARDS; i++)
+            shard_queues[i].close();
+    }
+
+    EngineV6A()
+    {
+        for (int i = 0; i < MAX_SHARDS; i++)
+            is_finish[i].store(false);
+    }
+};
+
+class EngineV6A_NB
+{
+private:
+    std::array<NonblockingMutexQueue<TimedOrder>, MAX_SHARDS> shard_queues;
+
+public:
+    std::array<EngineV5S, MAX_SHARDS> engines;
+    std::array<std::atomic<bool>, MAX_SHARDS> is_finish;
+    void route(const Order &order, BenchmarkRunner &benchmark_push);
+    void process(int shard_id, BenchmarkRunner &benchmark_queue, BenchmarkRunner &benchmark_match, BenchmarkRunner &benchmark_total);
+    void close_shard_queues() {};
+
+    EngineV6A_NB()
+    {
+        for (int i = 0; i < MAX_SHARDS; i++)
+            is_finish[i].store(false);
+    }
+};
+
+struct alignas(64) PaddedMutex
+{
+    std::mutex mtx;
+};
+
+class EngineV6B
+{
+private:
+    std::array<PaddedMutex, MAX_SHARDS> shard_mutexes;
+
+public:
+    std::array<EngineV5S, MAX_SHARDS> engines;
+    void process(const Order &order);
 };
 
 #endif
