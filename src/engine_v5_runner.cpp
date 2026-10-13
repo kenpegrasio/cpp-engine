@@ -59,6 +59,8 @@ int main(int argc, char **argv)
         }
     }
 
+    std::vector<Log> logs;
+
     EngineV5 engine;
 
     BenchmarkRunner agg(benchmark_mode);
@@ -67,7 +69,6 @@ int main(int argc, char **argv)
     std::barrier sync_end(N, [&]() noexcept
                           { agg.stopBatch(); });
     agg.reserve(orders.size());
-    engine.logs.reserve(orders.size() * 2);
 
     CoreAllocator core_allocator;
 
@@ -77,13 +78,16 @@ int main(int argc, char **argv)
         BenchmarkRunner benchmark(benchmark_mode);
         benchmark.reserve(split_orders[i].size());
 
+        std::vector<Log> cur_logs;
+        cur_logs.reserve(split_orders[i].size() * 2);
+
         // Wait for all threads to start before processing orders to ensure a fair benchmark
         sync_start.arrive_and_wait();
 
         for (const auto &order : split_orders[i])
         {
             const auto order_start = benchmark.startOperation();
-            engine.process(order);
+            engine.process(order, cur_logs);
             benchmark.endOperation(order_start);
         }
 
@@ -94,6 +98,8 @@ int main(int argc, char **argv)
         {
             std::lock_guard<std::mutex> lock(merge_mtx);
             agg.merge(benchmark);
+            for (auto log : cur_logs)
+                logs.push_back(log);
         }
     };
 
@@ -111,12 +117,12 @@ int main(int argc, char **argv)
     if (benchmark_mode)
     {
         const BenchmarkStats stats = agg.stats();
-        agg.printStats(stats, engine.logs.size());
+        agg.printStats(stats, logs.size());
         return EXIT_SUCCESS;
     }
 
-    std::cout << engine.logs.size() << std::endl;
-    for (const auto &log : engine.logs)
+    std::cout << logs.size() << std::endl;
+    for (const auto &log : logs)
     {
         if (log.log_type == LogType::Receive)
         {

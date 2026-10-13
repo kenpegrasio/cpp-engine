@@ -1,4 +1,4 @@
-# Latency Distribution Analysis
+# Tail Latency Analysis
 
 ## Research Question
 

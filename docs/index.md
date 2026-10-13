@@ -8,3 +8,4 @@ The project is divided into several phases, with each phase building on the desi
 
 1. **Phase 1**: [Single-Shard Single-Threaded Matching Engine](./single_thread/1_benchmark_controls.md)
 2. **Phase 2**: [Single-Shard Multithreaded Matching Engine](./multi_thread/1_benchmark.md)
+3. **Phase 3**: [Multi-Shard Matching Engine](./multi_shard/1_engines.md)

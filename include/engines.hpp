@@ -73,22 +73,31 @@ public:
     void process(const Order &order);
 };
 
+struct alignas(64) PaddedMutex
+{
+    std::mutex mtx;
+};
+
+struct alignas(64) PaddedSharedMutex
+{
+    std::shared_mutex mtx;
+};
+
 class EngineV5
 {
 private:
     std::array<std::deque<Order>, MAX_PRICE + 1> bids;
     std::array<std::deque<Order>, MAX_PRICE + 1> asks;
-    std::array<std::mutex, MAX_PRICE + 1> bids_mutex;
-    std::array<std::mutex, MAX_PRICE + 1> asks_mutex;
-    std::mutex matching_mutex, logs_mutex;
-    std::shared_mutex top_bids_mutex, lowest_asks_mutex;
+    std::array<PaddedMutex, MAX_PRICE + 1> bids_mutex;
+    std::array<PaddedMutex, MAX_PRICE + 1> asks_mutex;
+    PaddedMutex matching_mutex;
+    PaddedSharedMutex top_bids_mutex, lowest_asks_mutex;
     int top_bids{0}, lowest_asks{MAX_PRICE + 1};
     std::atomic<bool> is_matching{false};
-    void match();
+    void match(std::vector<Log> &logs);
 
 public:
-    std::vector<Log> logs;
-    void process(const Order &order);
+    void process(const Order &order, std::vector<Log> &logs);
 };
 
 class EngineV5S
@@ -144,11 +153,6 @@ public:
         for (int i = 0; i < MAX_SHARDS; i++)
             is_finish[i].store(false);
     }
-};
-
-struct alignas(64) PaddedMutex
-{
-    std::mutex mtx;
 };
 
 class EngineV6B
